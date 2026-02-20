@@ -1,0 +1,1690 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Remote QSCD Threat Model: Fabrication Risk and Court-Verifiable Signatures
+    </title>
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <style>
+      .flow-figure {
+        margin: 1em 0 1.4em;
+      }
+
+      .flow-figure figcaption {
+        margin-bottom: 0.45em;
+        color: #1f2937;
+      }
+
+      .flow-svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 1px solid #c9ced6;
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .flow-svg text {
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        text-rendering: optimizeLegibility;
+      }
+
+      .flow-svg line,
+      .flow-svg path {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .flow-note {
+        margin: 0.35em 0 0;
+        font-size: 0.92em;
+      }
+    </style>
+    <script
+      src="https://www.w3.org/Tools/respec/respec-w3c"
+      class="remove"
+      defer
+    ></script>
+    <script class="remove">
+      var respecConfig = {
+        specStatus: "unofficial",
+        editors: [
+          { name: "Jori Lehtinen", url: "https://github.com/jortsupetterson" },
+          {
+            name: "GPT-5.3-Codex",
+            url: "https://openai.com/index/introducing-gpt-5-3-codex/",
+          },
+        ],
+        github: "z-base/rqscd-report",
+        shortName: "rqscd-report",
+        xref: "web-platform",
+        publishDate: "2026-02-20",
+        localBiblio: {
+          EIDAS910: {
+            title:
+              "Regulation (EU) No 910/2014 (eIDAS), consolidated text (2024-10-18)",
+            href: "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02014R0910-20241018",
+            publisher: "European Union",
+            date: "2024-10-18",
+          },
+          EIDAS2024_1183: {
+            title:
+              "Regulation (EU) 2024/1183 amending Regulation (EU) No 910/2014",
+            href: "https://eur-lex.europa.eu/eli/reg/2024/1183/oj/eng",
+            publisher: "European Union",
+            date: "2024-04-11",
+          },
+          EIDAS2025_1567: {
+            title:
+              "Commission Implementing Regulation (EU) 2025/1567 laying down reference standards for remote qualified electronic signature and seal creation devices",
+            href: "https://eur-lex.europa.eu/eli/reg_impl/2025/1567/oj/eng",
+            publisher: "European Union",
+            date: "2025-08-08",
+          },
+          EIDAS2025_1570: {
+            title:
+              "Commission Implementing Regulation (EU) 2025/1570 laying down procedures for notifications under Article 31 and setting a secure electronic channel",
+            href: "https://eur-lex.europa.eu/eli/reg_impl/2025/1570/oj/eng",
+            publisher: "European Union",
+            date: "2025-08-08",
+          },
+          EIDAS2016_650: {
+            title:
+              "Commission Implementing Decision (EU) 2016/650 on standards for the security assessment of qualified signature and seal creation devices",
+            href: "https://eur-lex.europa.eu/eli/dec_impl/2016/650/oj/eng",
+            publisher: "European Union",
+            date: "2016-04-25",
+          },
+          TL2015_1505: {
+            title:
+              "Commission Implementing Decision (EU) 2015/1505 laying down technical specifications and formats relating to trusted lists",
+            href: "https://eur-lex.europa.eu/eli/dec_impl/2015/1505/oj/eng",
+            publisher: "European Union",
+            date: "2015-09-08",
+          },
+          ETSI119431_1: {
+            title:
+              "ETSI TS 119 431-1: Policy and security requirements for trust service components providing identity proofing and remote signing services - Part 1: TSP service components supporting server signing",
+            href: "https://www.etsi.org/deliver/etsi_ts/119400_119499/11943101/01.03.01_60/ts_11943101v010301p.pdf",
+            publisher: "ETSI",
+            date: "2024-08",
+          },
+          ETSI319401: {
+            title:
+              "ETSI EN 319 401: Electronic Signatures and Trust Infrastructures (ESI); General Policy Requirements for Trust Service Providers",
+            href: "https://www.etsi.org/deliver/etsi_en/319400_319499/319401/03.02.01_60/en_319401v030201p.pdf",
+            publisher: "ETSI",
+            date: "2024-09",
+          },
+          ETSI119432: {
+            title:
+              "ETSI TS 119 432: Electronic Signatures and Trust Infrastructures (ESI); APIs for remote digital signature creation",
+            href: "https://www.etsi.org/deliver/etsi_ts/119400_119499/119432/01.02.01_60/ts_119432v010201p.pdf",
+            publisher: "ETSI",
+            date: "2021-09",
+          },
+          CENETSI2024: {
+            title:
+              "CEN-ETSI Workshop support material on server signing and EN 419 241 terminology",
+            href: "https://docbox.etsi.org/esi/Open/workshops/202409_CEN_ETSI_Workshop/DAY2-6%20Signing%20%26%20the%20Wallet/DAY2-6-26%20ETSI_CEN_WS_Server%20Signing%20Jan%20Kjaersgaard.pdf",
+            publisher: "ETSI/CEN workshop support material",
+            date: "2024-09",
+          },
+          EN4192412PP: {
+            title:
+              "Protection Profile for QSCD for Server Signing (EN 419 241-2 context)",
+            href: "https://commoncriteriaportal.org/files/ppfiles/anssi-cc-pp-2018_02_fr_pp.pdf",
+            publisher: "Common Criteria Portal / ANSSI",
+            date: "2018-07",
+          },
+          LQSCDREPORT: {
+            title:
+              "LQSCD report: local qualified-signature control model (project reference)",
+            href: "https://z-base.github.io/lqscd-report/",
+            publisher: "z-base project",
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <section id="abstract">
+      <p>
+        This report models how a malicious remote-signing operator (or insider)
+        could cause court-verifiable signatures to be created without genuine
+        signer intent. The analysis is anchored to eIDAS legal requirements and
+        ETSI/CEN remote-signing controls, then separates what is verifier
+        checkable from what remains audit or policy assurance, with explicit
+        terminology and end-to-end linkage from legal source to dispute
+        evidence.
+      </p>
+    </section>
+
+    <section id="sotd" class="override">
+      <h2>Status of This Threat Model</h2>
+      <p>
+        This document is an informal threat model snapshot dated
+        <time datetime="2026-02-20">20 February 2026</time>. It is an
+        analytical report only.
+      </p>
+      <p>
+        It does not define standards requirements, certification criteria, or
+        conformance obligations, and it is not a legal opinion.
+      </p>
+      <p>
+        This report uses primary legal text (EUR-Lex) and publicly available
+        ETSI material. EN 419 241 terminology is referenced via ETSI/CEN support
+        material where full EN text is not publicly reproduced [[CENETSI2024]].
+      </p>
+    </section>
+
+    <section class="informative" id="scope-and-method">
+      <h2>Scope and Method</h2>
+      <p>
+        Scope: qualified remote signature creation where signing is triggered
+        through a service boundary managed by a (Q)TSP under eIDAS [[EIDAS910]]
+        [[EIDAS2024_1183]].
+      </p>
+      <p>Adversary classes in scope:</p>
+      <ul>
+        <li>Malicious QTSP operator or insider.</li>
+        <li>Compromised service component on the activation path.</li>
+        <li>
+          Compromised wallet or frontend component that can rewrite
+          authorization headers, session fields, or DTBS hash after user
+          approval.
+        </li>
+        <li>
+          Control-plane manipulation of trust or certification information.
+        </li>
+      </ul>
+      <p>
+        Method: map each attack to legal invariants, ETSI or CEN-family
+        controls, externally verifiable artifacts, and residual risk class.
+      </p>
+    </section>
+
+    <section class="informative" id="terminology">
+      <h2>Terminology and Abbreviations</h2>
+      <dl>
+        <dt>EU</dt>
+        <dd>European Union.</dd>
+
+        <dt>eIDAS</dt>
+        <dd>
+          Regulation (EU) No 910/2014 and amendments, as published on
+          EUR-Lex [[EIDAS910]] [[EIDAS2024_1183]].
+        </dd>
+
+        <dt>EUR-Lex</dt>
+        <dd>
+          EU legal portal used as the primary source for legal text and
+          implementing acts cited in this report.
+        </dd>
+
+        <dt>ETSI</dt>
+        <dd>
+          European Telecommunications Standards Institute; publishes technical
+          standards such as ETSI TS 119 431-1, ETSI TS 119 432, and ETSI EN
+          319 401 [[ETSI119431_1]] [[ETSI119432]] [[ETSI319401]].
+        </dd>
+
+        <dt>CEN</dt>
+        <dd>
+          European Committee for Standardization; relevant for EN 419 241
+          family context in remote signing [[CENETSI2024]].
+        </dd>
+
+        <dt>EN</dt>
+        <dd>European Norm (European Standard) issued through CEN/ETSI.</dd>
+
+        <dt>TS</dt>
+        <dd>
+          Technical Specification; in this document primarily ETSI TS 119 431-1
+          and ETSI TS 119 432 [[ETSI119431_1]] [[ETSI119432]].
+        </dd>
+
+        <dt>Implementing Regulation</dt>
+        <dd>
+          EU secondary legislation that operationalizes legal requirements; here
+          primarily Implementing Regulations (EU) 2025/1567 and 2025/1570
+          [[EIDAS2025_1567]] [[EIDAS2025_1570]].
+        </dd>
+
+        <dt>QTSP</dt>
+        <dd>
+          Qualified Trust Service Provider operating qualified trust services
+          under eIDAS framework rules [[EIDAS910]].
+        </dd>
+
+        <dt>QSCD</dt>
+        <dd>
+          Qualified Signature Creation Device; in this model, often remote and
+          service-operated [[EIDAS910]] [[EIDAS2025_1567]].
+        </dd>
+
+        <dt>SAD</dt>
+        <dd>
+          Signature Activation Data: data used to authorize a signature
+          operation in remote signing control flows [[ETSI119431_1]].
+        </dd>
+
+        <dt>SRA/SAP</dt>
+        <dd>
+          Signature Activation Protocol requirement set used in the server-
+          signing model; ETSI TS 119 431-1 maps several controls to SRA_SAP
+          requirements from the EN 419 241 family context [[ETSI119431_1]]
+          [[CENETSI2024]].
+        </dd>
+
+        <dt>SAM</dt>
+        <dd>
+          Signature Activation Module concept in EN 419 241 server-signing
+          architecture; validates activation evidence before sign activation
+          [[CENETSI2024]] [[EN4192412PP]].
+        </dd>
+
+        <dt>DTBS hash</dt>
+        <dd>
+          Hash of the Data To Be Signed used for transaction binding between
+          user authorization and signing operation [[ETSI119431_1]].
+        </dd>
+
+        <dt>Session context</dt>
+        <dd>
+          Request/session binding values linking authorization, SAD, and signing
+          request instances to reduce replay/substitution risk
+          [[ETSI119431_1]].
+        </dd>
+
+        <dt>Client application authentication</dt>
+        <dd>
+          API-level authentication component in ETSI TS 119 432 authorization
+          headers; the method of client authentication itself is defined as out
+          of scope in that TS [[ETSI119432]].
+        </dd>
+
+        <dt>OCSP/CRL</dt>
+        <dd>
+          Certificate-status mechanisms used by verifiers during signature
+          validation flows [[EIDAS910]].
+        </dd>
+
+        <dt>TL/LOTL</dt>
+        <dd>
+          Trusted Lists and EU List of the Lists control plane used for trust
+          status discovery [[TL2015_1505]].
+        </dd>
+      </dl>
+      <p>
+        Terminology linkage rule used in this report:
+        legal claim (eIDAS on EUR-Lex) -> standards control (ETSI/CEN/EN/TS) ->
+        operational flow node (SAD/DTBS hash/session context/QSCD) ->
+        verifier-visible artifact -> dispute outcome.
+      </p>
+    </section>
+
+    <section class="informative" id="legal-and-standards-baseline">
+      <h2>Legal and Standards Baseline</h2>
+      <p>
+        eIDAS legal effect and admissibility are explicit: an electronic
+        signature is not denied legal effect solely because of electronic form,
+        and a qualified electronic signature has equivalent legal effect to a
+        handwritten signature (Article 25) [[EIDAS910]].
+      </p>
+      <p>
+        The advanced-signature baseline includes signer sole control (Article
+        26(c)); QSCD requirements include protecting signature-creation data
+        against use by others (Annex II) [[EIDAS910]].
+      </p>
+      <p>
+        Remote qualified signature creation is explicitly addressed in Article
+        29a, including transitional timing in Article 29a(3): until
+        <time datetime="2026-05-21">21 May 2026</time>, management of remote
+        qualified signature and seal creation devices by some qualified trust
+        service providers may continue without separate qualified status as
+        remote QSCD managers [[EIDAS910]] [[EIDAS2024_1183]].
+      </p>
+      <p>
+        Technical standards for remote qualified signature and seal creation
+        devices were set in Implementing Regulation (EU) 2025/1567, which
+        references ETSI EN 319 401 and ETSI TS 119 431-1 (with Annex
+        adaptations), with application date
+        <time datetime="2027-08-19">19 August 2027</time>
+        [[EIDAS2025_1567]] [[ETSI319401]] [[ETSI119431_1]].
+      </p>
+      <p>
+        ETSI TS 119 431-1 defines server-signing controls for SAD issuance,
+        signing authorization, and transaction references (including bindings to
+        DTBS hash and session context) [[ETSI119431_1]]. ETSI EN 319 401 defines
+        general policy, access-control, channel-protection, and incident-
+        management controls for trust service providers [[ETSI319401]].
+      </p>
+      <p>
+        ETSI TS 119 432 defines the API message model used by many remote-
+        signing deployments, including a client-application authentication
+        component in authorization headers; however, the method by which the
+        client application is authenticated is explicitly out of scope in that
+        TS [[ETSI119432]].
+      </p>
+      <p>
+        eIDAS validation requirements (Article 32) focus on signature
+        cryptographic validity and certificate status checks for the signed
+        object [[EIDAS910]].
+      </p>
+      <figure class="flow-figure">
+        <figcaption>Legal and standards dependency flow</figcaption>
+        <svg
+          class="flow-svg"
+          viewBox="0 0 1320 360"
+          role="img"
+          aria-label="Diagram showing legal obligations flowing into standards controls and a narrower external validation surface."
+        >
+          <defs>
+            <marker
+              id="legal-arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2937"></path>
+            </marker>
+            <marker
+              id="legal-arrow-risk"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8a1c1c"></path>
+            </marker>
+          </defs>
+
+          <rect
+            x="20"
+            y="55"
+            width="210"
+            height="74"
+            rx="10"
+            ry="10"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.5"
+          ></rect>
+          <text x="34" y="84" font-size="15" fill="#111827">Article 25</text>
+          <text x="34" y="105" font-size="14" fill="#111827">
+            Legal effect of
+          </text>
+          <text x="34" y="122" font-size="14" fill="#111827">
+            electronic signatures
+          </text>
+
+          <rect
+            x="260"
+            y="55"
+            width="260"
+            height="74"
+            rx="10"
+            ry="10"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.5"
+          ></rect>
+          <text x="275" y="84" font-size="15" fill="#111827">
+            Article 26(c) + Annex II
+          </text>
+          <text x="275" y="105" font-size="14" fill="#111827">
+            Sole control and key
+          </text>
+          <text x="275" y="122" font-size="14" fill="#111827">
+            protection obligations
+          </text>
+
+          <rect
+            x="550"
+            y="55"
+            width="250"
+            height="74"
+            rx="10"
+            ry="10"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.5"
+          ></rect>
+          <text x="565" y="84" font-size="15" fill="#111827">Article 29a</text>
+          <text x="565" y="105" font-size="14" fill="#111827">
+            Remote QSCD framework
+          </text>
+          <text x="565" y="122" font-size="14" fill="#111827">
+            and transition timing
+          </text>
+
+          <rect
+            x="830"
+            y="55"
+            width="320"
+            height="74"
+            rx="10"
+            ry="10"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.5"
+          ></rect>
+          <text x="846" y="84" font-size="15" fill="#111827">
+            ETSI TS 119 431-1 + Implementing
+          </text>
+          <text x="846" y="105" font-size="15" fill="#111827">
+            Regulation (EU) 2025/1567
+          </text>
+          <text x="846" y="123" font-size="14" fill="#111827">
+            Technical control baseline
+          </text>
+
+          <line
+            x1="230"
+            y1="92"
+            x2="260"
+            y2="92"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#legal-arrow)"
+          ></line>
+          <line
+            x1="520"
+            y1="92"
+            x2="550"
+            y2="92"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#legal-arrow)"
+          ></line>
+          <line
+            x1="800"
+            y1="92"
+            x2="830"
+            y2="92"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#legal-arrow)"
+          ></line>
+
+          <rect
+            x="390"
+            y="236"
+            width="250"
+            height="78"
+            rx="10"
+            ry="10"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.5"
+          ></rect>
+          <text x="406" y="266" font-size="15" fill="#111827">
+            Article 32 validation
+          </text>
+          <text x="406" y="286" font-size="14" fill="#111827">
+            signature + cert status
+          </text>
+          <text x="406" y="304" font-size="14" fill="#111827">
+            for signed object
+          </text>
+
+          <rect
+            x="690"
+            y="236"
+            width="270"
+            height="78"
+            rx="10"
+            ry="10"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.5"
+          ></rect>
+          <text x="706" y="266" font-size="15" fill="#111827">
+            Externally checkable:
+          </text>
+          <text x="706" y="286" font-size="14" fill="#111827">
+            signature validity, chain,
+          </text>
+          <text x="706" y="304" font-size="14" fill="#111827">
+            revocation, trusted lists
+          </text>
+
+          <rect
+            x="20"
+            y="236"
+            width="340"
+            height="78"
+            rx="10"
+            ry="10"
+            fill="#fdeaea"
+            stroke="#8a1c1c"
+            stroke-width="1.5"
+          ></rect>
+          <text x="35" y="266" font-size="15" fill="#111827">
+            Often not externally checkable:
+          </text>
+          <text x="35" y="286" font-size="14" fill="#111827">
+            SAD issuance path, intent UI path,
+          </text>
+          <text x="35" y="304" font-size="14" fill="#111827">
+            per-event authorization integrity
+          </text>
+
+          <line
+            x1="675"
+            y1="129"
+            x2="515"
+            y2="236"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#legal-arrow)"
+          ></line>
+          <line
+            x1="675"
+            y1="129"
+            x2="825"
+            y2="236"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#legal-arrow)"
+          ></line>
+          <line
+            x1="675"
+            y1="129"
+            x2="190"
+            y2="236"
+            stroke="#8a1c1c"
+            stroke-width="2.4"
+            marker-end="url(#legal-arrow-risk)"
+          ></line>
+        </svg>
+      </figure>
+    </section>
+
+    <section class="informative" id="system-model-and-trust-boundaries">
+      <h2>System Model and Trust Boundaries</h2>
+      <p>Assets:</p>
+      <ul>
+        <li>Signature-creation key material (remote QSCD or HSM boundary).</li>
+        <li>SAD or equivalent authorization evidence per signature event.</li>
+        <li>Signed payload, DTBS hash, and signing request metadata.</li>
+        <li>Service logs, audit records, certificate and trust-list state.</li>
+      </ul>
+      <p>Trust boundary split:</p>
+      <ul>
+        <li>
+          Verifier-checkable by default: signature bytes, certificate chain,
+          revocation state, trusted-list status [[EIDAS910]] [[TL2015_1505]].
+        </li>
+        <li>
+          Usually provider-internal: SAD generation path, user-intent evidence,
+          authorization workflow internals, and internal log integrity
+          [[ETSI119431_1]] [[ETSI319401]].
+        </li>
+      </ul>
+      <aside class="note" title="Inference">
+        <p>
+          Inference from the cited sources: cryptographic validity can be proven
+          externally, while user-intent enforcement in remote signing is often
+          evidenced through service controls and audits rather than through a
+          portable cryptographic artifact retained by the signer.
+        </p>
+      </aside>
+    </section>
+
+    <section class="informative" id="full-compliance-residual-threat-model">
+      <h2>Full-Compliance Residual Threat Model</h2>
+      <p>
+        This section models only attack paths that remain realistically possible
+        even when applicable eIDAS, ETSI, and EN/CEN-profile controls are
+        implemented as intended.
+      </p>
+      <p>Assumed controls are present:</p>
+      <ul>
+        <li>
+          ETSI TS 119 431-1 session and authorization controls, including one
+          signature operation per SAD/session context, explicit approve action,
+          document-reference linkage, and bounded session period (Clause 10.2.3;
+          including SIG-6.3.1-09 to SIG-6.3.1-16, SIG-6.3.2-04, SIG-6.3.3-08,
+          SIG-6.4.2-09) [[ETSI119431_1]].
+        </li>
+        <li>
+          ETSI EN 319 401 controls for authenticated access, trusted channels,
+          endpoint identification, and operational security management
+          [[ETSI319401]].
+        </li>
+        <li>
+          ETSI TS 119 432 API model with client-application authentication
+          component in authorization headers [[ETSI119432]].
+        </li>
+        <li>
+          EN 419 241-family server-signing architecture assumptions (including
+          SAM-centered activation checks and dependence on upstream evidence)
+          [[CENETSI2024]] [[EN4192412PP]].
+        </li>
+      </ul>
+      <p>
+        Replay note: with the controls above, naive stale-token replay is less
+        realistic. The primary residual risk moves to authenticated-client
+        substitution and trusted-display failure on the signer side.
+      </p>
+      <p>
+        Boundary-failure note: direct QTSP-side SAD mint or bypass is treated as
+        a control-boundary compromise case, not the baseline "fully compliant
+        and correctly operating" case.
+      </p>
+      <p>Residual attack paths that still remain realistic:</p>
+      <ol>
+        <li>
+          Compromised but authenticated wallet/frontend path: the remote service
+          receives an authenticated request for DTBS hash B while the user is
+          shown A. The request can still satisfy server-side session and SAD
+          checks if the compromised client produces a coherent B-bound request
+          [[ETSI119431_1]] [[ETSI119432]].
+        </li>
+        <li>
+          Client identity ambiguity at runtime: remote QSCD-side enforcement can
+          authenticate a calling service principal, but ETSI TS 119 432 leaves
+          the concrete client-authentication method out of scope. This creates a
+          deployment-dependent gap between "authenticated client" and "trusted
+          user-facing client" [[ETSI119432]].
+        </li>
+        <li>
+          Upstream assertion dependency: in EN 419 241 server-signing models,
+          SAM can rely on assertions or evidence from other components; if that
+          upstream layer is compromised while still formally authenticated,
+          downstream signing may remain protocol-valid but intent-invalid
+          [[CENETSI2024]] [[EN4192412PP]].
+        </li>
+        <li>
+          Forensic asymmetry: EN 319 401 governance and logging controls improve
+          operations, but signer-held per-event cryptographic authorization
+          evidence is still often absent, leaving dispute reconstruction heavily
+          provider-centric [[ETSI319401]] [[EIDAS910]].
+        </li>
+      </ol>
+      <aside class="note" title="Inference">
+        <p>
+          Inference from ETSI and EN references: a remote service can verify
+          that a request is authenticated and internally consistent, but cannot
+          prove from signature artifacts alone that the user saw and approved
+          the same DTBS hash unless a separate trusted signer-side evidence path
+          exists.
+        </p>
+      </aside>
+      <figure class="flow-figure">
+        <figcaption>
+          Residual path under full control compliance: authenticated-client
+          substitution
+        </figcaption>
+        <svg
+          class="flow-svg"
+          viewBox="0 0 1420 290"
+          role="img"
+          aria-label="Diagram showing compromised but authenticated wallet submitting hash B while user sees hash A, with downstream checks passing and resulting signature validating."
+        >
+          <defs>
+            <marker
+              id="fcArrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
+              <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
+            </marker>
+            <marker
+              id="fcArrowR"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
+              <path d="M0 0 L10 5 L0 10 z" fill="#8a1c1c"></path>
+            </marker>
+          </defs>
+
+          <rect
+            x="360"
+            y="36"
+            width="760"
+            height="166"
+            rx="10"
+            ry="10"
+            fill="none"
+            stroke="#5b6f8b"
+            stroke-width="1.4"
+            stroke-dasharray="7 5"
+          ></rect>
+          <text x="377" y="58" font-size="13" fill="#374151">
+            Fully compliant remote-signing control plane
+          </text>
+
+          <rect
+            x="20"
+            y="100"
+            width="170"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="52" y="125" font-size="14" fill="#111827">Signer</text>
+          <text x="39" y="143" font-size="13" fill="#111827">intends hash A</text>
+
+          <rect
+            x="220"
+            y="100"
+            width="280"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#fdeaea"
+            stroke="#8a1c1c"
+            stroke-width="1.3"
+          ></rect>
+          <text x="245" y="125" font-size="14" fill="#111827">
+            Authenticated wallet/frontend
+          </text>
+          <text x="248" y="143" font-size="13" fill="#111827">
+            compromised: shows A, sends B
+          </text>
+
+          <rect
+            x="540"
+            y="100"
+            width="240"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="564" y="125" font-size="14" fill="#111827">
+            Auth service checks:
+          </text>
+          <text x="560" y="143" font-size="13" fill="#111827">
+            session, SAD, client auth
+          </text>
+
+          <rect
+            x="820"
+            y="100"
+            width="170"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="866" y="136" font-size="14" fill="#111827">QSCD</text>
+
+          <rect
+            x="1030"
+            y="100"
+            width="190"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="1068" y="125" font-size="14" fill="#111827">
+            Signature on B
+          </text>
+          <text x="1064" y="143" font-size="13" fill="#111827">
+            fully validates
+          </text>
+
+          <rect
+            x="1260"
+            y="100"
+            width="140"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="1299" y="136" font-size="14" fill="#111827">Verifier</text>
+
+          <line
+            x1="190"
+            y1="131"
+            x2="220"
+            y2="131"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#fcArrow)"
+          ></line>
+          <line
+            x1="500"
+            y1="131"
+            x2="540"
+            y2="131"
+            stroke="#8a1c1c"
+            stroke-width="2.2"
+            marker-end="url(#fcArrowR)"
+          ></line>
+          <line
+            x1="780"
+            y1="131"
+            x2="820"
+            y2="131"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#fcArrow)"
+          ></line>
+          <line
+            x1="990"
+            y1="131"
+            x2="1030"
+            y2="131"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#fcArrow)"
+          ></line>
+          <line
+            x1="1220"
+            y1="131"
+            x2="1260"
+            y2="131"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#fcArrow)"
+          ></line>
+
+          <line
+            x1="360"
+            y1="162"
+            x2="360"
+            y2="214"
+            stroke="#8a1c1c"
+            stroke-width="1.8"
+            stroke-dasharray="6 4"
+          ></line>
+          <line
+            x1="360"
+            y1="214"
+            x2="1120"
+            y2="214"
+            stroke="#8a1c1c"
+            stroke-width="1.8"
+            stroke-dasharray="6 4"
+            marker-end="url(#fcArrowR)"
+          ></line>
+          <text x="380" y="234" font-size="12" fill="#8a1c1c">
+            all server-side checks can pass while user intent mapping is wrong
+          </text>
+        </svg>
+      </figure>
+    </section>
+
+    <section class="informative" id="attack-tree-break-sole-control">
+      <h2>Attack Tree: Break Sole Control</h2>
+      <figure class="flow-figure">
+        <figcaption>Attack-tree branches for sole-control failure</figcaption>
+        <svg
+          class="flow-svg"
+          viewBox="0 0 1320 420"
+          role="img"
+          aria-label="Attack tree with four main branches A through D and key sub-attacks."
+        >
+          <defs>
+            <marker id="tArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
+            </marker>
+          </defs>
+
+          <rect x="380" y="24" width="560" height="56" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="446" y="57" font-size="15" fill="#111827">Goal: produce legally effective signatures without genuine signer intent</text>
+
+          <rect x="40" y="130" width="280" height="74" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
+          <text x="73" y="154" font-size="14" fill="#111827">A. Unauthorized signing via SAD path</text>
+          <text x="62" y="172" font-size="11" fill="#111827">A1 bypass/mint SAD, A2 replay</text>
+          <text x="62" y="188" font-size="11" fill="#111827">A3 substitute DTBS</text>
+
+          <rect x="360" y="130" width="280" height="74" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
+          <text x="395" y="154" font-size="14" fill="#111827">B. Confused deputy substitution</text>
+          <text x="390" y="172" font-size="11" fill="#111827">B1 approve A sign B</text>
+          <text x="390" y="188" font-size="11" fill="#111827">B2 binding downgrade</text>
+
+          <rect x="680" y="130" width="280" height="74" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
+          <text x="711" y="154" font-size="14" fill="#111827">C. Post-signature history rewrite</text>
+          <text x="700" y="172" font-size="11" fill="#111827">C1 rewrite/delete logs</text>
+          <text x="700" y="188" font-size="11" fill="#111827">C2 selective disclosure</text>
+
+          <rect x="1000" y="130" width="280" height="74" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
+          <text x="1024" y="154" font-size="14" fill="#111827">D. Verification control-plane abuse</text>
+          <text x="1018" y="172" font-size="11" fill="#111827">D1 status delay</text>
+          <text x="1018" y="188" font-size="11" fill="#111827">D2 trust-list timing misuse</text>
+
+          <line x1="660" y1="80" x2="180" y2="130" stroke="#1f2937" stroke-width="1.8" marker-end="url(#tArrow)"></line>
+          <line x1="660" y1="80" x2="500" y2="130" stroke="#1f2937" stroke-width="1.8" marker-end="url(#tArrow)"></line>
+          <line x1="660" y1="80" x2="820" y2="130" stroke="#1f2937" stroke-width="1.8" marker-end="url(#tArrow)"></line>
+          <line x1="660" y1="80" x2="1140" y2="130" stroke="#1f2937" stroke-width="1.8" marker-end="url(#tArrow)"></line>
+
+          <rect x="40" y="230" width="280" height="132" rx="8" ry="8" fill="#fff" stroke="#d1d5db" stroke-width="1.2"></rect>
+          <text x="56" y="258" font-size="12" fill="#374151">A1: mint/bypass SAD in auth path</text>
+          <text x="56" y="278" font-size="12" fill="#374151">A2: replay previous SAD/session token</text>
+          <text x="56" y="298" font-size="12" fill="#374151">A3: authorize digest A, sign digest B</text>
+
+          <rect x="360" y="230" width="280" height="132" rx="8" ry="8" fill="#fff" stroke="#d1d5db" stroke-width="1.2"></rect>
+          <text x="376" y="258" font-size="12" fill="#374151">B1: user confirms hash A only</text>
+          <text x="376" y="278" font-size="12" fill="#374151">B2: frontend or wallet rewrites request to hash B</text>
+          <text x="376" y="298" font-size="12" fill="#374151">B3: verifier still sees valid signature on B</text>
+
+          <rect x="680" y="230" width="280" height="132" rx="8" ry="8" fill="#fff" stroke="#d1d5db" stroke-width="1.2"></rect>
+          <text x="696" y="258" font-size="12" fill="#374151">C1: unauthorized event written internally</text>
+          <text x="696" y="278" font-size="12" fill="#374151">C2: evidence modified before dispute</text>
+          <text x="696" y="298" font-size="12" fill="#374151">C3: edited narrative appears coherent</text>
+
+          <rect x="1000" y="230" width="280" height="132" rx="8" ry="8" fill="#fff" stroke="#d1d5db" stroke-width="1.2"></rect>
+          <text x="1016" y="258" font-size="12" fill="#374151">D1: status publication delay</text>
+          <text x="1016" y="278" font-size="12" fill="#374151">D2: stale TL/LOTL view at time T</text>
+          <text x="1016" y="298" font-size="12" fill="#374151">D3: acceptance based on old snapshot</text>
+
+          <line x1="180" y1="204" x2="180" y2="230" stroke="#1f2937" stroke-width="1.6" marker-end="url(#tArrow)"></line>
+          <line x1="500" y1="204" x2="500" y2="230" stroke="#1f2937" stroke-width="1.6" marker-end="url(#tArrow)"></line>
+          <line x1="820" y1="204" x2="820" y2="230" stroke="#1f2937" stroke-width="1.6" marker-end="url(#tArrow)"></line>
+          <line x1="1140" y1="204" x2="1140" y2="230" stroke="#1f2937" stroke-width="1.6" marker-end="url(#tArrow)"></line>
+        </svg>
+      </figure>
+    </section>
+
+    <section class="informative" id="flow-illustrations">
+      <h2>Flow Illustrations</h2>
+      <p>
+        The following diagrams illustrate the baseline signing flow and all
+        attack-flow branches (A, B, C, D) from the attack tree.
+      </p>
+
+      <figure class="flow-figure">
+        <figcaption>Baseline remote-signing flow (intended path)</figcaption>
+        <svg
+          class="flow-svg"
+          viewBox="0 0 1260 240"
+          role="img"
+          aria-label="Baseline flow from signer through wallet and QTSP components to verifier."
+        >
+          <defs>
+            <marker id="bArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
+            </marker>
+          </defs>
+          <rect x="350" y="44" width="430" height="138" rx="10" ry="10" fill="none" stroke="#5b6f8b" stroke-width="1.4" stroke-dasharray="7 5"></rect>
+          <text x="366" y="66" font-size="13" fill="#374151">QTSP control plane</text>
+
+          <rect x="20" y="92" width="140" height="58" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="63" y="126" font-size="14" fill="#111827">Signer</text>
+          <rect x="190" y="92" width="140" height="58" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="226" y="126" font-size="14" fill="#111827">Wallet UI</text>
+          <rect x="370" y="92" width="180" height="58" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <text x="395" y="126" font-size="14" fill="#111827">Auth service</text>
+          <rect x="580" y="92" width="160" height="58" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <text x="627" y="126" font-size="14" fill="#111827">QSCD</text>
+          <rect x="770" y="92" width="170" height="58" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="804" y="126" font-size="14" fill="#111827">Signed object</text>
+          <rect x="970" y="92" width="170" height="58" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="1025" y="126" font-size="14" fill="#111827">Verifier</text>
+
+          <line x1="160" y1="121" x2="190" y2="121" stroke="#1f2937" stroke-width="2" marker-end="url(#bArrow)"></line>
+          <line x1="330" y1="121" x2="370" y2="121" stroke="#1f2937" stroke-width="2" marker-end="url(#bArrow)"></line>
+          <line x1="550" y1="121" x2="580" y2="121" stroke="#1f2937" stroke-width="2" marker-end="url(#bArrow)"></line>
+          <line x1="740" y1="121" x2="770" y2="121" stroke="#1f2937" stroke-width="2" marker-end="url(#bArrow)"></line>
+          <line x1="940" y1="121" x2="970" y2="121" stroke="#1f2937" stroke-width="2" marker-end="url(#bArrow)"></line>
+
+          <text x="376" y="84" font-size="12" fill="#374151">DTBS + auth context</text>
+          <text x="586" y="84" font-size="12" fill="#374151">SAD-bound sign op</text>
+        </svg>
+      </figure>
+
+      <figure class="flow-figure">
+        <figcaption>Flow A: unauthorized signing via SAD path</figcaption>
+        <svg
+          class="flow-svg"
+          viewBox="0 0 1260 260"
+          role="img"
+          aria-label="Attack A where insider uses compromised authorization path to produce a valid signature."
+        >
+          <defs>
+            <marker id="aArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#8a1c1c"></path>
+            </marker>
+            <marker id="aArrowN" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#4b5563"></path>
+            </marker>
+          </defs>
+
+          <rect x="160" y="46" width="930" height="160" rx="10" ry="10" fill="none" stroke="#8a1c1c" stroke-width="1.4" stroke-dasharray="7 5"></rect>
+          <text x="178" y="66" font-size="13" fill="#8a1c1c">Compromised QTSP path</text>
+
+          <rect x="20" y="96" width="120" height="58" rx="8" ry="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.3"></rect>
+          <text x="55" y="130" font-size="14" fill="#4b5563">Signer</text>
+          <rect x="190" y="96" width="170" height="58" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
+          <text x="240" y="130" font-size="14" fill="#111827">Insider</text>
+          <rect x="390" y="96" width="220" height="58" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
+          <text x="422" y="120" font-size="14" fill="#111827">SAD/Auth service</text>
+          <text x="418" y="139" font-size="13" fill="#111827">mint or bypass SAD</text>
+          <rect x="640" y="96" width="150" height="58" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <text x="685" y="130" font-size="14" fill="#111827">QSCD</text>
+          <rect x="820" y="96" width="170" height="58" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="858" y="130" font-size="14" fill="#111827">Valid signature</text>
+          <rect x="1020" y="96" width="180" height="58" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="1076" y="130" font-size="14" fill="#111827">Verifier</text>
+
+          <line x1="360" y1="125" x2="390" y2="125" stroke="#8a1c1c" stroke-width="2.2" marker-end="url(#aArrow)"></line>
+          <line x1="610" y1="125" x2="640" y2="125" stroke="#8a1c1c" stroke-width="2.2" marker-end="url(#aArrow)"></line>
+          <line x1="790" y1="125" x2="820" y2="125" stroke="#8a1c1c" stroke-width="2.2" marker-end="url(#aArrow)"></line>
+          <line x1="990" y1="125" x2="1020" y2="125" stroke="#4b5563" stroke-width="2" marker-end="url(#aArrowN)"></line>
+
+          <line x1="140" y1="162" x2="390" y2="198" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="6 4"></line>
+          <text x="182" y="84" font-size="12" fill="#6b7280">attacker path bypasses</text>
+          <text x="182" y="101" font-size="12" fill="#6b7280">real signer interaction</text>
+        </svg>
+      </figure>
+
+      <figure class="flow-figure">
+        <figcaption>Flow B: confused-deputy DTBS substitution</figcaption>
+        <svg
+          class="flow-svg"
+          viewBox="0 0 1300 280"
+          role="img"
+          aria-label="Attack B where hash A is approved but hash B is submitted to the signing operation."
+        >
+          <defs>
+            <marker id="sArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
+            </marker>
+            <marker id="sArrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#8a1c1c"></path>
+            </marker>
+          </defs>
+
+          <rect x="20" y="108" width="170" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="67" y="144" font-size="14" fill="#111827">Signer/UI</text>
+          <rect x="220" y="50" width="220" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <text x="248" y="86" font-size="14" fill="#111827">Approved hash A</text>
+          <rect x="220" y="170" width="220" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <text x="260" y="206" font-size="14" fill="#111827">Gateway/API</text>
+          <rect x="470" y="108" width="220" height="62" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
+          <text x="495" y="132" font-size="14" fill="#111827">Substitution point</text>
+          <text x="515" y="151" font-size="13" fill="#111827">send hash B</text>
+          <rect x="720" y="108" width="160" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <text x="767" y="144" font-size="14" fill="#111827">QSCD</text>
+          <rect x="910" y="108" width="170" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="947" y="144" font-size="14" fill="#111827">Signed doc B</text>
+          <rect x="1110" y="108" width="170" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="1164" y="144" font-size="14" fill="#111827">Verifier</text>
+
+          <line x1="190" y1="139" x2="220" y2="81" stroke="#1f2937" stroke-width="2" marker-end="url(#sArrow)"></line>
+          <line x1="440" y1="81" x2="470" y2="139" stroke="#1f2937" stroke-width="2" marker-end="url(#sArrow)"></line>
+          <line x1="440" y1="201" x2="470" y2="139" stroke="#1f2937" stroke-width="2" marker-end="url(#sArrow)"></line>
+          <line x1="690" y1="139" x2="720" y2="139" stroke="#8a1c1c" stroke-width="2.3" marker-end="url(#sArrowR)"></line>
+          <line x1="880" y1="139" x2="910" y2="139" stroke="#1f2937" stroke-width="2" marker-end="url(#sArrow)"></line>
+          <line x1="1080" y1="139" x2="1110" y2="139" stroke="#1f2937" stroke-width="2" marker-end="url(#sArrow)"></line>
+
+          <text x="196" y="126" font-size="12" fill="#374151">user confirms A</text>
+          <text x="700" y="126" font-size="12" fill="#8a1c1c">B is actually signed</text>
+        </svg>
+      </figure>
+
+      <figure class="flow-figure">
+        <figcaption>Flow C: post-signature history rewriting</figcaption>
+        <svg
+          class="flow-svg"
+          viewBox="0 0 1300 260"
+          role="img"
+          aria-label="Attack C where internal records are rewritten after an unauthorized signature event."
+        >
+          <defs>
+            <marker id="hArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
+            </marker>
+            <marker id="hArrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#8a1c1c"></path>
+            </marker>
+          </defs>
+
+          <rect x="300" y="28" width="360" height="46" rx="8" ry="8" fill="none" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="6 4"></rect>
+          <text x="322" y="56" font-size="12" fill="#4b5563">No signer-held append-only receipt</text>
+
+          <rect x="20" y="110" width="200" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="39" y="146" font-size="14" fill="#111827">Unauthorized sign event</text>
+          <rect x="250" y="110" width="180" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="305" y="146" font-size="14" fill="#111827">Logs L1</text>
+          <rect x="460" y="110" width="220" height="62" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
+          <text x="488" y="135" font-size="14" fill="#111827">Rewrite/delete step</text>
+          <text x="510" y="153" font-size="13" fill="#111827">create altered L1'</text>
+          <rect x="710" y="110" width="220" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="739" y="146" font-size="14" fill="#111827">Curated evidence</text>
+          <rect x="960" y="110" width="320" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="1028" y="146" font-size="14" fill="#111827">Auditor/court view</text>
+
+          <line x1="220" y1="141" x2="250" y2="141" stroke="#1f2937" stroke-width="2" marker-end="url(#hArrow)"></line>
+          <line x1="430" y1="141" x2="460" y2="141" stroke="#1f2937" stroke-width="2" marker-end="url(#hArrow)"></line>
+          <line x1="680" y1="141" x2="710" y2="141" stroke="#8a1c1c" stroke-width="2.3" marker-end="url(#hArrowR)"></line>
+          <line x1="930" y1="141" x2="960" y2="141" stroke="#1f2937" stroke-width="2" marker-end="url(#hArrow)"></line>
+
+          <line x1="570" y1="110" x2="340" y2="92" stroke="#8a1c1c" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#hArrowR)"></line>
+          <text x="431" y="84" font-size="12" fill="#8a1c1c">overwrite prior trail</text>
+        </svg>
+      </figure>
+
+      <figure class="flow-figure">
+        <figcaption>Flow D: verification control-plane manipulation</figcaption>
+        <svg
+          class="flow-svg"
+          viewBox="0 0 1340 280"
+          role="img"
+          aria-label="Attack D where status publication timing influences verifier snapshot at time T."
+        >
+          <defs>
+            <marker id="vArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
+            </marker>
+            <marker id="vArrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#8a1c1c"></path>
+            </marker>
+          </defs>
+
+          <rect x="20" y="120" width="190" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="47" y="145" font-size="14" fill="#111827">Signature + cert</text>
+          <text x="58" y="163" font-size="13" fill="#111827">validator input</text>
+
+          <rect x="250" y="60" width="230" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <text x="292" y="95" font-size="14" fill="#111827">OCSP/CRL status</text>
+          <rect x="250" y="180" width="230" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <text x="292" y="215" font-size="14" fill="#111827">TL/LOTL updates</text>
+
+          <rect x="520" y="120" width="260" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="548" y="145" font-size="14" fill="#111827">Verifier snapshot at T</text>
+          <text x="562" y="163" font-size="13" fill="#111827">observed trust state</text>
+
+          <rect x="820" y="120" width="220" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="862" y="145" font-size="14" fill="#111827">Decision at T</text>
+          <text x="849" y="163" font-size="13" fill="#111827">accept/reject signature</text>
+
+          <rect x="1080" y="120" width="240" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <text x="1114" y="145" font-size="14" fill="#111827">Contract/dispute</text>
+          <text x="1125" y="163" font-size="13" fill="#111827">record uses T</text>
+
+          <rect x="280" y="18" width="170" height="36" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
+          <text x="294" y="41" font-size="12" fill="#8a1c1c">delay/shaping window</text>
+
+          <line x1="210" y1="151" x2="520" y2="151" stroke="#1f2937" stroke-width="2" marker-end="url(#vArrow)"></line>
+          <line x1="480" y1="91" x2="520" y2="138" stroke="#1f2937" stroke-width="2" marker-end="url(#vArrow)"></line>
+          <line x1="480" y1="211" x2="520" y2="164" stroke="#1f2937" stroke-width="2" marker-end="url(#vArrow)"></line>
+          <line x1="780" y1="151" x2="820" y2="151" stroke="#1f2937" stroke-width="2" marker-end="url(#vArrow)"></line>
+          <line x1="1040" y1="151" x2="1080" y2="151" stroke="#1f2937" stroke-width="2" marker-end="url(#vArrow)"></line>
+
+          <line x1="365" y1="54" x2="365" y2="60" stroke="#8a1c1c" stroke-width="2.1" marker-end="url(#vArrowR)"></line>
+          <line x1="365" y1="54" x2="365" y2="180" stroke="#8a1c1c" stroke-width="2.1" marker-end="url(#vArrowR)"></line>
+        </svg>
+      </figure>
+    </section>
+
+    <section class="informative" id="end-to-end-linkage">
+      <h2>End-to-End Linkage (Legal to Dispute Evidence)</h2>
+      <p>
+        This section provides the explicit linkage chain requested for this
+        threat model: EU legal source (EUR-Lex) -> ETSI/CEN control language ->
+        operational flow step -> verifier-observable artifact -> court or
+        dispute relevance.
+      </p>
+      <table class="simple">
+        <thead>
+          <tr>
+            <th>Link ID</th>
+            <th>Legal anchor (EUR-Lex)</th>
+            <th>Standards anchor (ETSI/CEN/EN/TS)</th>
+            <th>Operational step (SAD/DTBS/session/QSCD)</th>
+            <th>Verifier-observable artifact</th>
+            <th>Dispute relevance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>E2E-01</td>
+            <td>eIDAS Article 26(c), Annex II [[EIDAS910]]</td>
+            <td>ETSI TS 119 431-1 SAD control model [[ETSI119431_1]]</td>
+            <td>
+              Signer authorization intent should bind to SAD and signing request.
+            </td>
+            <td>
+              Usually indirect; often no signer-held independent SAD artifact.
+            </td>
+            <td>
+              Core sole-control dispute point: was user authorization genuine?
+            </td>
+          </tr>
+          <tr>
+            <td>E2E-02</td>
+            <td>eIDAS Article 26(d), Article 29a [[EIDAS910]]</td>
+            <td>
+              ETSI TS 119 431-1 DTBS hash/session association constraints and
+              ETSI TS 119 432 request-model context [[ETSI119431_1]]
+              [[ETSI119432]]
+            </td>
+            <td>
+              DTBS hash and session context must remain bound from approval to
+              sign command.
+            </td>
+            <td>
+              Final signature validates over resulting payload, but approval path
+              evidence may remain internal.
+            </td>
+            <td>
+              Confused-deputy and substitution disputes (approve A, sign B).
+            </td>
+          </tr>
+          <tr>
+            <td>E2E-03</td>
+            <td>eIDAS Article 25 and Article 32 [[EIDAS910]]</td>
+            <td>
+              Signature format and validation controls; EN/TS policy overlays
+              [[ETSI319401]]
+            </td>
+            <td>QSCD or HSM produces signature value and certificate path.</td>
+            <td>Signature bytes, chain, status, and trusted-list checks.</td>
+            <td>
+              Signature can be legally effective while intent evidence remains
+              contested.
+            </td>
+          </tr>
+          <tr>
+            <td>E2E-04</td>
+            <td>
+              eIDAS Article 19, Article 20, Article 31 [[EIDAS910]]
+              [[EIDAS2025_1570]]
+            </td>
+            <td>
+              ETSI EN 319 401 operational and logging controls
+              [[ETSI319401]]
+            </td>
+            <td>
+              Logging, incident handling, trust-status publication, and
+              synchronization.
+            </td>
+            <td>Audit outputs, incident records, TL/LOTL and status endpoints.</td>
+            <td>
+              Determines whether post-event reconstruction is reliable or
+              provider-dependent.
+            </td>
+          </tr>
+          <tr>
+            <td>E2E-05</td>
+            <td>
+              Implementing Regulation (EU) 2025/1567 and transition timing
+              context [[EIDAS2025_1567]] [[EIDAS2024_1183]]
+            </td>
+            <td>
+              ETSI TS 119 431-1 as technical reference baseline
+              [[ETSI119431_1]]
+            </td>
+            <td>
+              Runtime enforcement maturity depends on actual deployed profile and
+              evaluation boundaries.
+            </td>
+            <td>
+              Varies by provider; verifier usually sees only outcome artifacts.
+            </td>
+            <td>
+              Explains why compliance posture and verifier-checkable assurance
+              can diverge.
+            </td>
+          </tr>
+          <tr>
+            <td>E2E-06</td>
+            <td>eIDAS Article 26(c), Article 29a [[EIDAS910]]</td>
+            <td>
+              ETSI TS 119 432 authorization header model and client-application
+              authentication scope boundary [[ETSI119432]]
+            </td>
+            <td>
+              Remote service authenticates calling client context, but method
+              and user-facing trust semantics are deployment-specific.
+            </td>
+            <td>
+              Server-side auth evidence (token/cert/session IDs) may exist
+              without independent proof of what the signer actually saw.
+            </td>
+            <td>
+              Core "which frontend was actually trusted?" dispute point.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <figure class="flow-figure">
+        <figcaption>End-to-end linkage chain</figcaption>
+        <svg
+          class="flow-svg"
+          viewBox="0 0 1500 250"
+          role="img"
+          aria-label="Linear chain from legal source to standards to operation to verifier artifacts to dispute outcomes."
+        >
+          <defs>
+            <marker id="e2eArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
+            </marker>
+          </defs>
+
+          <rect x="20" y="84" width="250" height="82" rx="10" ry="10" fill="#eef5ff" stroke="#214e8a" stroke-width="1.4"></rect>
+          <text x="66" y="114" font-size="14" fill="#111827">EU legal source</text>
+          <text x="48" y="133" font-size="13" fill="#111827">eIDAS on EUR-Lex</text>
+          <text x="67" y="152" font-size="13" fill="#111827">Articles/Annex</text>
+
+          <rect x="320" y="84" width="250" height="82" rx="10" ry="10" fill="#eef5ff" stroke="#214e8a" stroke-width="1.4"></rect>
+          <text x="367" y="114" font-size="14" fill="#111827">Standards layer</text>
+          <text x="341" y="133" font-size="13" fill="#111827">ETSI TS / EN + CEN</text>
+          <text x="370" y="152" font-size="13" fill="#111827">controls</text>
+
+          <rect x="620" y="84" width="260" height="82" rx="10" ry="10" fill="#eef5ff" stroke="#214e8a" stroke-width="1.4"></rect>
+          <text x="656" y="114" font-size="14" fill="#111827">Operational runtime</text>
+          <text x="639" y="133" font-size="13" fill="#111827">SAD, DTBS hash, session</text>
+          <text x="716" y="152" font-size="13" fill="#111827">QSCD</text>
+
+          <rect x="930" y="84" width="250" height="82" rx="10" ry="10" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.4"></rect>
+          <text x="963" y="114" font-size="14" fill="#111827">Verifier surface</text>
+          <text x="953" y="133" font-size="13" fill="#111827">signature + cert status</text>
+          <text x="975" y="152" font-size="13" fill="#111827">TL/LOTL view</text>
+
+          <rect x="1230" y="84" width="250" height="82" rx="10" ry="10" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.4"></rect>
+          <text x="1283" y="114" font-size="14" fill="#111827">Dispute outcome</text>
+          <text x="1259" y="133" font-size="13" fill="#111827">court narrative/evidence</text>
+          <text x="1262" y="152" font-size="13" fill="#111827">intent contested or proven</text>
+
+          <line x1="270" y1="125" x2="320" y2="125" stroke="#1f2937" stroke-width="2" marker-end="url(#e2eArrow)"></line>
+          <line x1="570" y1="125" x2="620" y2="125" stroke="#1f2937" stroke-width="2" marker-end="url(#e2eArrow)"></line>
+          <line x1="880" y1="125" x2="930" y2="125" stroke="#1f2937" stroke-width="2" marker-end="url(#e2eArrow)"></line>
+          <line x1="1180" y1="125" x2="1230" y2="125" stroke="#1f2937" stroke-width="2" marker-end="url(#e2eArrow)"></line>
+        </svg>
+      </figure>
+    </section>
+
+    <section class="informative" id="attack-to-requirement-mapping">
+      <h2>Attack-to-Requirement Mapping</h2>
+      <p>
+        This mapping is attack-centric and links directly to the end-to-end
+        chain in [[#end-to-end-linkage]] (E2E-01 through E2E-06).
+      </p>
+      <table class="simple">
+        <thead>
+          <tr>
+            <th>Attack class</th>
+            <th>E2E link IDs</th>
+            <th>Applicable legal requirement</th>
+            <th>Applicable ETSI or CEN-family control</th>
+            <th>Verifier-visible evidence today</th>
+            <th>Residual risk class</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>A1-A3 unauthorized signing via SAD path</td>
+            <td>E2E-01, E2E-02, E2E-03</td>
+            <td>
+              eIDAS Article 26(c), Annex II, Article 29a sole-control posture
+              [[EIDAS910]] [[EIDAS2024_1183]]
+            </td>
+            <td>
+              TS 119 431-1 SAD and DTBS binding controls (Clause 10.2.3; for
+              example SIG-6.3.1-09, SIG-6.3.1-10, SIG-6.3.2-04, SIG-6.3.3-08,
+              and SIG-6.4.2-09) [[ETSI119431_1]]
+            </td>
+            <td>
+              Usually only final signature and certificate-path evidence; SAD
+              lifecycle evidence is commonly internal to the operator.
+            </td>
+            <td>High in malicious-operator model.</td>
+          </tr>
+          <tr>
+            <td>B1-B3 transaction confusion with authenticated frontend abuse</td>
+            <td>E2E-02, E2E-03, E2E-06</td>
+            <td>
+              eIDAS Article 26(d) integrity linkage to signed data [[EIDAS910]]
+            </td>
+            <td>
+              TS 119 431-1 request or response document referencing and session
+              association rules (for example SIG-6.3.1-10 and SIG-6.3.2-04),
+              plus TS 119 432 client-application authentication component where
+              concrete auth method is out of scope [[ETSI119431_1]]
+              [[ETSI119432]]
+            </td>
+            <td>
+              Signature verifies on selected payload; independent proof that
+              user approved the same payload is often absent.
+            </td>
+            <td>High where signer-side trusted display path is absent.</td>
+          </tr>
+          <tr>
+            <td>C1-C2 internal history rewriting</td>
+            <td>E2E-04</td>
+            <td>
+              eIDAS Article 19 risk management and Article 20 conformity
+              assessment cycle [[EIDAS910]]
+            </td>
+            <td>
+              EN 319 401 logging and incident-management controls [[ETSI319401]]
+            </td>
+            <td>
+              Periodic audit outputs and incident handling records; limited
+              signer-retained cryptographic evidence for each event.
+            </td>
+            <td>Medium; detection relies on governance timing and scope.</td>
+          </tr>
+          <tr>
+            <td>D1-D2 verification control-plane manipulation</td>
+            <td>E2E-04, E2E-05</td>
+            <td>
+              eIDAS Article 31 publication of certified devices and trusted-list
+              ecosystem dependencies [[EIDAS910]] [[EIDAS2025_1570]]
+              [[TL2015_1505]]
+            </td>
+            <td>
+              Operational publication and synchronization controls across
+              authorities and service endpoints.
+            </td>
+            <td>
+              Public lists and status services are available, but timing and
+              completeness remain infrastructure assumptions.
+            </td>
+            <td>Medium.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="informative" id="findings">
+      <h2>Findings: Security Gaps That Stay Material</h2>
+      <p>
+        Finding 1: a signature can remain court-admissible and technically valid
+        while signer-intent evidence remains contested. This follows from
+        Article 25 legal-effect rules combined with remote-signing trust
+        boundaries where SAD and consent workflows are service-administered
+        [[EIDAS910]] [[ETSI119431_1]] (E2E-01 to E2E-03).
+      </p>
+      <p>
+        Finding 2: standards enforce many important controls, but external
+        parties often cannot independently verify per-signature sole-control
+        enforcement from signature artifacts alone. Inference basis: Article 32
+        validation checks signature and certificate-state properties, while SAD
+        lifecycle evidence is typically managed within the remote signing system
+        [[EIDAS910]] [[ETSI119431_1]] (E2E-01, E2E-02, E2E-03).
+      </p>
+      <p>
+        Finding 3: timing matters. On
+        <time datetime="2026-02-20">20 February 2026</time>, Article 29a(3)
+        transition time is still active until
+        <time datetime="2026-05-21">21 May 2026</time>, while Implementing
+        Regulation (EU) 2025/1567 applies from
+        <time datetime="2027-08-19">19 August 2027</time>. This creates a real
+        interim period where legal operation and harmonized technical baseline
+        maturity are not fully aligned by date [[EIDAS910]] [[EIDAS2025_1567]]
+        (E2E-05).
+      </p>
+      <p>
+        Finding 4: EN 419 241 concepts are central in remote-signing assurance,
+        but public scrutiny is constrained where full EN text is not publicly
+        reproduced. Public ETSI and legal references can map requirements, but
+        full clause-level review may still require controlled standards access
+        [[CENETSI2024]] [[EIDAS2016_650]] [[EIDAS2025_1567]] (E2E-04, E2E-05).
+      </p>
+      <p>
+        Finding 5: the attack surface is not limited to malicious QTSP behavior.
+        A compromised wallet or frontend that constructs authorization requests
+        can substitute DTBS hash or request-binding fields after user approval.
+        If the remote QSCD validates only service-side request state, it may
+        still produce a valid signature on attacker-selected data (E2E-02,
+        E2E-03, E2E-06) [[ETSI119431_1]] [[ETSI119432]].
+      </p>
+      <p>
+        Finding 6: even with replay and session controls fully enforced, remote
+        infrastructure usually authenticates a calling client context, not the
+        trustworthiness of the user-facing renderer. ETSI TS 119 432 includes
+        client-application authentication fields but leaves the concrete method
+        out of scope, so "authenticated client" and "trusted signer display
+        path" are not equivalent claims [[ETSI119432]].
+      </p>
+    </section>
+
+    <section class="informative" id="alternative">
+      <h2>Alternative</h2>
+      <p>
+        This section is non-normative.
+      </p>
+      <p>
+        Current local QSCD deployments are often inconvenient in real service
+        use. If that usability gap remains, market and integration pressure will
+        keep pushing providers toward remote-signing-by-default models.
+      </p>
+      <p>
+        The alternative path in this report is not "keep today's inconvenient
+        local model." The alternative path is to make the end-user device itself
+        the practical QSCD boundary: mobile phone, tablet, laptop, or desktop
+        with secure key custody, trusted local verification, and explicit signer
+        intent capture.
+      </p>
+      <p>
+        In practical terms, the trade-off is between:
+      </p>
+      <ul>
+        <li>
+          high-cost centralized infrastructure that requires trust in operator
+          process integrity and internal controls, and
+        </li>
+        <li>
+          true signer-side sole control where legally binding intent is produced
+          on the device after local verification (for example biometric and
+          trusted local confirmation).
+        </li>
+      </ul>
+      <p>
+        In the end-user-device QSCD path, sensitive authorization material does
+        not require continuous exposure to remote service planes. The signer
+        endpoint is also not required to accept arbitrary inbound signing
+        requests on open ports; network exposure can be constrained to explicit
+        user-initiated signing moments.
+      </p>
+      <p>
+        Example reference profile:
+        <a href="https://z-base.github.io/lqscd-report/"
+          >https://z-base.github.io/lqscd-report/</a
+        >
+        [[LQSCDREPORT]].
+      </p>
+      <p>
+        Inference: modern endpoint devices already contain many of the technical
+        primitives needed for QSCD-aligned operation (secure hardware boundary,
+        local user verification signals, trusted execution or key-storage
+        components, and user-presence signals). The remaining gap is primarily
+        standardized proof-artifact generation, interoperability profile
+        alignment, and conformity evidence packaging, not absence of core
+        hardware capabilities.
+      </p>
+    </section>
+
+    <section class="informative" id="minimum-evidence-artifacts-to-request">
+      <h2>Minimum Evidence Artifacts to Request in Disputes</h2>
+      <p>
+        Critical variant: if the wallet or frontend component that generates the
+        authorization request is hijacked, an attacker can replace the DTBS hash
+        (or related authorization headers and session fields) after the user
+        confirms. In that case, the remote QSCD may sign the attacker-selected
+        hash while all downstream cryptographic checks still pass.
+      </p>
+      <p>
+        To test sole-control claims against that frontend-compromise path,
+        relying parties and signers should request:
+      </p>
+      <ol>
+        <li>
+          A per-signature authorization artifact generated in a trusted local
+          boundary, binding signer identity, signing key id, DTBS hash,
+          canonical request-header hash, session context, nonce, expiry, and a
+          hash of the exact payload representation shown for user confirmation.
+        </li>
+        <li>
+          Evidence that the remote signing service validated exactly that
+          artifact and exactly that DTBS hash (not only that a signature exists
+          for some hash).
+        </li>
+        <li>
+          Evidence of which client-application authentication mechanism was used
+          at request time, which client credential identity was accepted, and
+          how that identity was bound to the authorization session.
+        </li>
+        <li>
+          Independent timestamping and integrity protection for authorization and
+          verification records outside mutable application logs.
+        </li>
+        <li>
+          Evidence of anti-replay and anti-substitution checks at the SAD and
+          request-validation point, including rejected attempt records.
+        </li>
+        <li>
+          Trust-list and certificate-status evidence as observed at validation
+          time, including retrieval timestamps.
+        </li>
+      </ol>
+      <p>
+        A focused mechanism question for service operators and assessors: "Which
+        evaluated boundary prevents QTSP-side SAD minting or replay, and which
+        signed artifact can the signer retain to prove that boundary was
+        enforced for this signature event?"
+      </p>
+      <p>
+        Additional mechanism question for frontend compromise: "Which boundary
+        prevents post-confirmation DTBS hash or header substitution by the
+        wallet/frontend, which client-authentication method actually identifies
+        that frontend instance, and which retained artifact proves the remote
+        QSCD signed exactly the hash shown to the user?"
+      </p>
+    </section>
+
+    <section id="conformance">
+      <h2>Conformance</h2>
+      <p>
+        This is an informative threat model and has no conformance classes or
+        normative requirements.
+      </p>
+    </section>
+  </body>
+</html>

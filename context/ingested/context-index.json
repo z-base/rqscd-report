@@ -1,0 +1,525 @@
+[
+  {
+    "file": "android-security-key-attestation.html",
+    "path": "context/android-security-key-attestation.html",
+    "size_bytes": 288827,
+    "sha256": "ec5606daacaecbcd703bc7c706eb8c0e380d82800410554847e74fac4488accc",
+    "type": "html",
+    "status": "ok",
+    "title": "Verify hardware-backed key pairs with key attestation &nbsp;|&nbsp; Security &nbsp;|&nbsp; Android Developers",
+    "text_chars": 30847,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/android-security-key-attestation.snippet.txt"
+  },
+  {
+    "file": "bsi-pp-0084.html",
+    "path": "context/bsi-pp-0084.html",
+    "size_bytes": 62443,
+    "sha256": "6338ec4d364797b2d22fbe435aa977ec320cf1b654fa482d97d20d91d8783a3b",
+    "type": "html",
+    "status": "ok",
+    "title": "BSI - Bundesamt für Sicherheit in der Informationstechnik - BSI-CC-PP-0084-2014",
+    "text_chars": 8218,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 4,
+      "protection_profile": 15,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/bsi-pp-0084.snippet.txt"
+  },
+  {
+    "file": "CCPART1V3.1R5.pdf",
+    "path": "context/CCPART1V3.1R5.pdf",
+    "size_bytes": 1327388,
+    "sha256": "82312911be320fa10df4a487a1a94882c660606448761a5c0c104ea2abb6e326",
+    "type": "pdf",
+    "status": "ok",
+    "pages": 106,
+    "text_file": "context/ingested/CCPART1V3.1R5.txt",
+    "text_chars": 217070,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 12,
+      "protection_profile": 548,
+      "security_target": 324,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/CCPART1V3.1R5.snippet.txt"
+  },
+  {
+    "file": "CCPART2V3.1R5.pdf",
+    "path": "context/CCPART2V3.1R5.pdf",
+    "size_bytes": 2966629,
+    "sha256": "438a1881fe5a1e70f749cfc1ea9cc001ade1a6681ab593e96c5a6828eea135de",
+    "type": "pdf",
+    "status": "ok",
+    "pages": 323,
+    "text_file": "context/ingested/CCPART2V3.1R5.txt",
+    "text_chars": 547173,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 5,
+      "protection_profile": 604,
+      "security_target": 608,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/CCPART2V3.1R5.snippet.txt"
+  },
+  {
+    "file": "CCPART3V3.1R5.pdf",
+    "path": "context/CCPART3V3.1R5.pdf",
+    "size_bytes": 3007122,
+    "sha256": "3740c0f3245cc708c0a3933e3cfa5a8e18d5f7318232e469e004f7115916ba81",
+    "type": "pdf",
+    "status": "ok",
+    "pages": 247,
+    "text_file": "context/ingested/CCPART3V3.1R5.txt",
+    "text_chars": 450595,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 6,
+      "protection_profile": 187,
+      "security_target": 157,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/CCPART3V3.1R5.snippet.txt"
+  },
+  {
+    "file": "CEMV3.1R5.pdf",
+    "path": "context/CEMV3.1R5.pdf",
+    "size_bytes": 3127966,
+    "sha256": "e39d1e2a06df250abe6cba30f57c1c96774c8c797df44f2376608235a54b0683",
+    "type": "pdf",
+    "status": "ok",
+    "pages": 430,
+    "text_file": "context/ingested/CEMV3.1R5.txt",
+    "text_chars": 1030733,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 6,
+      "protection_profile": 593,
+      "security_target": 521,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/CEMV3.1R5.snippet.txt"
+  },
+  {
+    "file": "cencenelec-home.html",
+    "path": "context/cencenelec-home.html",
+    "size_bytes": 790,
+    "sha256": "8bcf1105fce923deb8fdcdda5b1a5a2fc175bc7cc6639ae5c4d73bbbae12d9b5",
+    "type": "html",
+    "status": "ok",
+    "title": "Page Redirections",
+    "text_chars": 128,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/cencenelec-home.snippet.txt"
+  },
+  {
+    "file": "cencenelec-resultsearch-en-419-241.html",
+    "path": "context/cencenelec-resultsearch-en-419-241.html",
+    "size_bytes": 57477,
+    "sha256": "3c0c775b8a7d42d10557a8958470eac5a3490dd236f41405335f53a0ac45983c",
+    "type": "html",
+    "status": "ok",
+    "title": "Search - CEN-CENELEC",
+    "text_chars": 5625,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/cencenelec-resultsearch-en-419-241.snippet.txt"
+  },
+  {
+    "file": "cencenelec-search-en-419-241.html",
+    "path": "context/cencenelec-search-en-419-241.html",
+    "size_bytes": 57477,
+    "sha256": "3c0c775b8a7d42d10557a8958470eac5a3490dd236f41405335f53a0ac45983c",
+    "type": "html",
+    "status": "ok",
+    "title": "Search - CEN-CENELEC",
+    "text_chars": 5625,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/cencenelec-search-en-419-241.snippet.txt"
+  },
+  {
+    "file": "cencenelec-standards-search.html",
+    "path": "context/cencenelec-standards-search.html",
+    "size_bytes": 271157,
+    "sha256": "11e96c5587029187d958fbbb75520aa8eda9ba60e245c265f7556fcf53046977",
+    "type": "html",
+    "status": "ok",
+    "title": "CEN - CENELEC - Search standards",
+    "text_chars": 110940,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/cencenelec-standards-search.snippet.txt"
+  },
+  {
+    "file": "common-criteria-portal-cc.html",
+    "path": "context/common-criteria-portal-cc.html",
+    "size_bytes": 31294,
+    "sha256": "bb4c60a30a0060af30a3d624511fc8848786047fb3d14404e040327f336f4a28",
+    "type": "html",
+    "status": "ok",
+    "title": "Publications : CC Portal",
+    "text_chars": 9830,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 3,
+      "protection_profile": 2,
+      "security_target": 3,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/common-criteria-portal-cc.snippet.txt"
+  },
+  {
+    "file": "common-criteria-portal-home.html",
+    "path": "context/common-criteria-portal-home.html",
+    "size_bytes": 154,
+    "sha256": "6adef86c67e4bbbcbc8872bedf10c93c33839884a5cb1ca1d36f080444041ca7",
+    "type": "html",
+    "status": "ok",
+    "text_chars": 149,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/common-criteria-portal-home.snippet.txt"
+  },
+  {
+    "file": "common-criteria-portal-index.cfm.html",
+    "path": "context/common-criteria-portal-index.cfm.html",
+    "size_bytes": 13425,
+    "sha256": "af70d0671c6fbd64cf29bdb686011662e15ef330d692448b338f205fdbae2998",
+    "type": "html",
+    "status": "ok",
+    "title": "Common Criteria : CC Portal",
+    "text_chars": 1689,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 5,
+      "protection_profile": 1,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/common-criteria-portal-index.cfm.snippet.txt"
+  },
+  {
+    "file": "common-criteria-portal-pps.html",
+    "path": "context/common-criteria-portal-pps.html",
+    "size_bytes": 505405,
+    "sha256": "ecb12d0b546c4ca080c51b68c1f5dd876bda5d1623882466f6181d8b0138e87e",
+    "type": "html",
+    "status": "ok",
+    "title": "Protection Profiles : CC Portal",
+    "text_chars": 47635,
+    "term_hits": {
+      "qscd": 2,
+      "common_criteria": 16,
+      "protection_profile": 258,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/common-criteria-portal-pps.snippet.txt"
+  },
+  {
+    "file": "common-criteria-portal-products.html",
+    "path": "context/common-criteria-portal-products.html",
+    "size_bytes": 8349961,
+    "sha256": "f64ee4469714d414f02901b7f05c3babebc77fe819de76d4711377f9a526a548",
+    "type": "html",
+    "status": "ok",
+    "title": "Certified Products : CC Portal",
+    "text_chars": 746531,
+    "term_hits": {
+      "qscd": 28,
+      "common_criteria": 16,
+      "protection_profile": 4193,
+      "security_target": 2046,
+      "eidas": 6,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/common-criteria-portal-products.snippet.txt"
+  },
+  {
+    "file": "etsi-standards.html",
+    "path": "context/etsi-standards.html",
+    "size_bytes": 295311,
+    "sha256": "0bbb39dd9b8856740f5d979fe830c2083a8459bccf490576823be6f343f5943f",
+    "type": "html",
+    "status": "ok",
+    "title": "Download ETSI ICT Standards for free",
+    "text_chars": 46501,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/etsi-standards.snippet.txt"
+  },
+  {
+    "file": "eur-lex-CELEX-32014R0910.html",
+    "path": "context/eur-lex-CELEX-32014R0910.html",
+    "size_bytes": 613919,
+    "sha256": "2d147c9654fc7213e6d2300f065d6737dd5579fd41f673b2f0fd1cdc103c9670",
+    "type": "html",
+    "status": "ok",
+    "title": "Regulation - 910/2014 - EN - e-IDAS - EUR-Lex",
+    "text_chars": 132071,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 1,
+      "security_target": 0,
+      "eidas": 4,
+      "qualified_signature": 56,
+      "qualified_seal": 21
+    },
+    "snippet_file": "context/ingested/eur-lex-CELEX-32014R0910.snippet.txt"
+  },
+  {
+    "file": "gqscd-ideas.html",
+    "path": "context/gqscd-ideas.html",
+    "size_bytes": 145667,
+    "sha256": "051d1181dcca3869a48ed49588637f1ce5acb43be46f4a867fed85e5242985c6",
+    "type": "html",
+    "status": "ok",
+    "title": "Globally Qualified Signature Creation Device (GQSCD) Core",
+    "text_chars": 57081,
+    "term_hits": {
+      "qscd": 22,
+      "common_criteria": 0,
+      "protection_profile": 1,
+      "security_target": 2,
+      "eidas": 13,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/gqscd-ideas.snippet.txt"
+  },
+  {
+    "file": "iso-15408-1-72891.html",
+    "path": "context/iso-15408-1-72891.html",
+    "size_bytes": 7986,
+    "sha256": "3f94ff1b411e0ae23a1dc14e1e515e3addd2117748f4778d9fe80b96991d6563",
+    "type": "html",
+    "status": "ok",
+    "title": "Just a moment...",
+    "text_chars": 60,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/iso-15408-1-72891.snippet.txt"
+  },
+  {
+    "file": "iso-15408-2-72892.html",
+    "path": "context/iso-15408-2-72892.html",
+    "size_bytes": 7986,
+    "sha256": "7e7e53199260a62e81ae4b9fd6c98d624fde8e3b925abda4fa169cf7cf8c2bcb",
+    "type": "html",
+    "status": "ok",
+    "title": "Just a moment...",
+    "text_chars": 60,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/iso-15408-2-72892.snippet.txt"
+  },
+  {
+    "file": "iso-15408-3-72893.html",
+    "path": "context/iso-15408-3-72893.html",
+    "size_bytes": 7958,
+    "sha256": "ce489bf6bdfaa0608a4a59ddf1fbfe634aeaab6c6b7dcc6cb1e0c473000238e2",
+    "type": "html",
+    "status": "ok",
+    "title": "Just a moment...",
+    "text_chars": 60,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/iso-15408-3-72893.snippet.txt"
+  },
+  {
+    "file": "samsung-galaxy-s25-ultra.html",
+    "path": "context/samsung-galaxy-s25-ultra.html",
+    "size_bytes": 1508834,
+    "sha256": "4106ccfff83da6db9d458e273334f78a0450bc639c04d3f1df9f799114e65790",
+    "type": "html",
+    "status": "ok",
+    "title": "Galaxy S25 Ultra | Features &amp; Highlights | Samsung US",
+    "text_chars": 77545,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/samsung-galaxy-s25-ultra.snippet.txt"
+  },
+  {
+    "file": "samsung-knox-mobile-security-whitepaper.html",
+    "path": "context/samsung-knox-mobile-security-whitepaper.html",
+    "size_bytes": 55279,
+    "sha256": "6c008256106f812fae306b1eb5d7e25e8ab6bd58438f791a5bdb677b5ad23b77",
+    "type": "html",
+    "status": "ok",
+    "title": "Introduction to Samsung Knox mobile security | Fundamentals | Samsung Knox Documentation",
+    "text_chars": 6568,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/samsung-knox-mobile-security-whitepaper.snippet.txt"
+  },
+  {
+    "file": "samsung-knox-tima-keystore.html",
+    "path": "context/samsung-knox-tima-keystore.html",
+    "size_bytes": 124231,
+    "sha256": "f5a27f7ea2ac24d7721a934d0e28f086ae67da5707363a71e50931fef316ecae",
+    "type": "html",
+    "status": "ok",
+    "title": "TIMA Keystore | Knox SDK | Samsung Knox Documentation",
+    "text_chars": 16786,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/samsung-knox-tima-keystore.snippet.txt"
+  },
+  {
+    "file": "samsung-knox-vault.html",
+    "path": "context/samsung-knox-vault.html",
+    "size_bytes": 66584,
+    "sha256": "9021804748de2c3c3d41f072210fdd34a5de2e371506d4c3790d1a650730be24",
+    "type": "html",
+    "status": "ok",
+    "title": "Knox Vault | Fundamentals | Samsung Knox Documentation",
+    "text_chars": 15185,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 1,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/samsung-knox-vault.snippet.txt"
+  },
+  {
+    "file": "samsung-news-s25-series-true-ai-companion.html",
+    "path": "context/samsung-news-s25-series-true-ai-companion.html",
+    "size_bytes": 221746,
+    "sha256": "dfd31f9c763237dc9334332498be09b8d259a6a6cdaf79e88f797ce223358d6c",
+    "type": "html",
+    "status": "ok",
+    "title": "Samsung Galaxy S25 Series Sets the Standard of AI Phone as a True AI Companion &#8211; Samsung Global Newsroom",
+    "text_chars": 26475,
+    "term_hits": {
+      "qscd": 0,
+      "common_criteria": 0,
+      "protection_profile": 0,
+      "security_target": 0,
+      "eidas": 0,
+      "qualified_signature": 0,
+      "qualified_seal": 0
+    },
+    "snippet_file": "context/ingested/samsung-news-s25-series-true-ai-companion.snippet.txt"
+  }
+]

@@ -1,0 +1,87 @@
+Common Methodology 
+for Information Technology 
+Security Evaluation 
+ 
+ 
+ 
+ 
+ 
+ 
+Evaluation methodology 
+ 
+April 2017 
+ 
+Version 3.1 
+Revision 5 
+ 
+ 
+ 
+CCMB-2017-04-004 
+
+ 
+Page 2 of 430 Version 3.1 April 2017 
+Foreword 
+ 
+This version of the Common Methodology for Information Technology Security Evaluation 
+(CEM v3.1) is the first major revision since being published as CEM v2.3 in 2005.  
+ 
+CEM v3.1 aims to: eliminate redundant evaluation activities; reduce/eliminate activities that 
+contribute little to the final assurance of a product; clarify CEM terminology to reduce 
+misunderstanding; restructure and refocus the evaluation act ivities to those areas where 
+security assurance is gained; and add new CEM requirements if needed. 
+ 
+Trademarks: 
+ UNIX is a registered trademark of The Open Group in the United States and other 
+countries 
+ Windows is a registered trademark of Microsoft Corpora tion in the United States 
+and other countries 
+ 
+ 
+April 2017 Version 3.1 Page 3 of 430 
+Legal Notice: 
+ 
+The governmental organisations listed below contributed to the development of this version 
+of the Common Methodology for Information Technology Security Evaluation. As the joint 
+holders of the copyright in the Common Methodology  for Information Technology Security 
+Evaluation, version 3.1  (called “CEM 3.1”), they hereby grant non -exclusive license to 
+ISO/IEC to use CEM 3.1 in the continued development/maintenance of the ISO/IEC 18045 
+international standard. However, these governmental organisations retain the right to use, 
+copy, distribute, translate or modify CEM  3.1 as they see fit. 
+ 
+Australia: The Australian Signals Directorate; 
+Canada: Communications Security Establishment; 
+France: Agence Nationale de la Sécurité des Systèmes d'Information; 
+Germany: Bundesamt für Sicherheit in der Informationstechnik; 
+Japan: Information Technology Promotion Agency; 
+Netherlands: Netherlands National Communications Security Agency; 
+New Zealand: Government Communications Security Bureau; 
+Republic of Korea: National Security Research Institute; 
+Spain: Ministerio de Administraciones Públicas and  
+ Centro Criptológico Nacional; 
+Sweden: Swedish Defence Materiel Administration; 
+United Kingdom: National Cyber Security Centre; 
+United States: The National Security Agency and the 
+ National Institute of Standards and Technology. 
+Table of contents 
+Page 4 of 430 Version 3.1 April 2017 
+Table of Contents 
+1 INTRODUCTION ............................................................................................. 12 
+2 SCOPE ........................................................................................................... 13 
+3 NORMATIVE REFERENCES ......................................................................... 14 
+4 TERMS AND DEFINITIONS ........................................................................... 15 
+5 SYMBOLS AND ABBREVIATED TERMS ..................................................... 17 
+6 OVERVIEW ..................................................................................................... 18 
+6.1 Organisation of the CEM ...................................................................................................................... 18 
+7 DOCUMENT CONVENTIONS ........................................................................ 19 
+7.1 Terminology ............................................................................................................................................ 19 
+7.2 Verb usage .............................................................................................................................................. 19 
+7.3 General evaluation guidance ................................................................................................................. 19 
+7.4 Relationship between CC and CEM structures ................................................................................... 19 
+8 EVALUATION PROCESS AND RELATED TASKS ....................................... 21 
+8.1 Introduction ............................................................................................................................................ 21 
+8.2 Evaluation process overview ................................................................................................................. 21 
+8.2.1 Objectives ....................................................................................................................................... 21 
+8.2.2 Responsibilities of the roles ............................................................................................................ 21 
+8.2.3 Relationship of roles ....................................................................................................................... 22 
+8.2.4 General evaluation model ............................................................................................................... 22 
+8.2.5 Evaluator verdicts ...........................
