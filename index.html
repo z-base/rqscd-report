@@ -191,9 +191,9 @@
         <li>Malicious QTSP operator or insider.</li>
         <li>Compromised service component on the activation path.</li>
         <li>
-          Compromised wallet or frontend component that can rewrite
-          authorization headers, session fields, or DTBS hash after user
-          approval.
+          Compromised or impersonating wallet/frontend that uses a valid
+          authenticated user session, then submits different DTBS content (hash
+          B) than what the user approved (hash A).
         </li>
         <li>
           Control-plane manipulation of trust or certification information.
@@ -272,10 +272,12 @@
 
         <dt>SRA/SAP</dt>
         <dd>
-          Signature Activation Protocol requirement set used in the server-
-          signing model; ETSI TS 119 431-1 maps several controls to SRA_SAP
-          requirements from the EN 419 241 family context [[ETSI119431_1]]
-          [[CENETSI2024]].
+          In this report, this denotes the EN 419 241-1 clause family
+          <code>SRA_SAP</code> used for signature-activation requirements in
+          server signing. <code>SRA</code> means Signature Activation
+          Requirements, and <code>SAP</code> means Signature Activation
+          Protocol. ETSI TS 119 431-1 maps several controls to these
+          <code>SRA_SAP</code> clauses [[ETSI119431_1]] [[CENETSI2024]].
         </dd>
 
         <dt>SAM</dt>
@@ -307,8 +309,9 @@
 
         <dt>OCSP/CRL</dt>
         <dd>
-          Certificate-status mechanisms used by verifiers during signature
-          validation flows [[EIDAS910]].
+          OCSP means Online Certificate Status Protocol; CRL means Certificate
+          Revocation List. These are certificate-status mechanisms used by
+          verifiers during signature validation flows [[EIDAS910]].
         </dd>
 
         <dt>TL/LOTL</dt>
@@ -686,7 +689,8 @@
           Compromised but authenticated wallet/frontend path: the remote service
           receives an authenticated request for DTBS hash B while the user is
           shown A. The request can still satisfy server-side session and SAD
-          checks if the compromised client produces a coherent B-bound request
+          checks if the compromised client reuses valid authenticated session
+          context and produces a coherent B-bound request
           [[ETSI119431_1]] [[ETSI119432]].
         </li>
         <li>
@@ -695,6 +699,9 @@
           the concrete client-authentication method out of scope. This creates a
           deployment-dependent gap between "authenticated client" and "trusted
           user-facing client" [[ETSI119432]].
+          Open-source wallet code reduces some supply-chain and review risk, but
+          does not by itself prevent wallet impersonation or rogue clients that
+          authenticate successfully to the remote service.
         </li>
         <li>
           Upstream assertion dependency: in EN 419 241 server-signing models,
@@ -988,7 +995,7 @@
 
           <rect x="360" y="230" width="280" height="132" rx="8" ry="8" fill="#fff" stroke="#d1d5db" stroke-width="1.2"></rect>
           <text x="376" y="258" font-size="12" fill="#374151">B1: user confirms hash A only</text>
-          <text x="376" y="278" font-size="12" fill="#374151">B2: frontend or wallet rewrites request to hash B</text>
+          <text x="376" y="278" font-size="12" fill="#374151">B2: frontend uses valid auth context, submits hash B</text>
           <text x="376" y="298" font-size="12" fill="#374151">B3: verifier still sees valid signature on B</text>
 
           <rect x="680" y="230" width="280" height="132" rx="8" ry="8" fill="#fff" stroke="#d1d5db" stroke-width="1.2"></rect>
@@ -1550,10 +1557,11 @@
       <p>
         Finding 5: the attack surface is not limited to malicious QTSP behavior.
         A compromised wallet or frontend that constructs authorization requests
-        can substitute DTBS hash or request-binding fields after user approval.
-        If the remote QSCD validates only service-side request state, it may
-        still produce a valid signature on attacker-selected data (E2E-02,
-        E2E-03, E2E-06) [[ETSI119431_1]] [[ETSI119432]].
+        can authenticate the user legitimately, then submit different DTBS
+        content or hash than what the user approved. If the remote QSCD
+        validates only service-side request state, it may still produce a valid
+        signature on attacker-selected data (E2E-02, E2E-03, E2E-06)
+        [[ETSI119431_1]] [[ETSI119432]].
       </p>
       <p>
         Finding 6: even with replay and session controls fully enforced, remote
@@ -1565,11 +1573,169 @@
       </p>
     </section>
 
+    <section class="informative" id="minimum-evidence-artifacts-to-request">
+      <h2>Minimum Verification Requirements by Threat Scenario</h2>
+      <p>
+        This section is organized inline with the attack scenarios in
+        [[#attack-to-requirement-mapping]]. For each scenario, it states the
+        claim at risk, the minimum artifacts needed to test claim integrity, and
+        which parties need to verify those artifacts.
+      </p>
+
+      <section id="min-evidence-a">
+        <h3>Scenario A (A1-A3): unauthorized signing via SAD path</h3>
+        <p>
+          Claim at risk: signature activation was legitimate for this specific
+          signature event and was not minted or replayed by another party.
+        </p>
+        <p>Minimum artifacts to test integrity:</p>
+        <ul>
+          <li>
+            Per-signature authorization artifact binding signer identity,
+            signing key id, DTBS hash, session context, nonce, and expiry.
+          </li>
+          <li>
+            Service-side verification record proving one-time SAD or session use
+            for that exact signature operation.
+          </li>
+          <li>
+            Evidence of rejected replay attempts for the same authorization
+            context (if present).
+          </li>
+        </ul>
+        <p>Who needs to verify:</p>
+        <ul>
+          <li>Signer and relying party: artifact consistency for the event.</li>
+          <li>
+            Auditor or assessor: enforcement boundary that prevents QTSP-side
+            mint or replay.
+          </li>
+        </ul>
+      </section>
+
+      <section id="min-evidence-b">
+        <h3>
+          Scenario B (B1-B3): approved content differs from signed content
+        </h3>
+        <p>
+          Claim at risk: the user approved content A, but the remote flow signed
+          content B using a valid authenticated session.
+        </p>
+        <p>Minimum artifacts to test integrity:</p>
+        <ul>
+          <li>
+            Hash of the exact payload representation shown to the user at
+            confirmation time.
+          </li>
+          <li>
+            DTBS hash received by the remote signing service and signed by the
+            QSCD for the same event.
+          </li>
+          <li>
+            Binding evidence between user authorization, session context, and
+            DTBS hash used in the sign command.
+          </li>
+          <li>
+            Evidence of which client-authentication mechanism and client
+            credential identity were accepted for that request.
+          </li>
+        </ul>
+        <p>Who needs to verify:</p>
+        <ul>
+          <li>
+            Signer and relying party: whether displayed-hash evidence matches
+            the actually signed payload hash.
+          </li>
+          <li>
+            Auditor or assessor: anti-substitution controls and client-
+            authentication trust model.
+          </li>
+        </ul>
+        <aside class="note" title="Scope note">
+          <p>
+            Open-source wallet implementations reduce some review risk, but do
+            not by themselves prevent wallet impersonation or rogue clients that
+            authenticate successfully to the remote service.
+          </p>
+        </aside>
+      </section>
+
+      <section id="min-evidence-c">
+        <h3>Scenario C (C1-C2): post-signature history rewrite</h3>
+        <p>
+          Claim at risk: internal records were altered after signing, changing
+          what can be shown during audit or dispute.
+        </p>
+        <p>Minimum artifacts to test integrity:</p>
+        <ul>
+          <li>
+            Independently timestamped authorization and signing-event receipts.
+          </li>
+          <li>
+            Integrity-protected records outside mutable application log stores.
+          </li>
+          <li>
+            Correlation identifiers linking signature value, authorization
+            artifact, and logging records.
+          </li>
+        </ul>
+        <p>Who needs to verify:</p>
+        <ul>
+          <li>
+            Signer and relying party: receipt continuity for disputed events.
+          </li>
+          <li>
+            Auditor, CAB, or supervisor: log-integrity and incident-evidence
+            controls.
+          </li>
+        </ul>
+      </section>
+
+      <section id="min-evidence-d">
+        <h3>Scenario D (D1-D2): verification control-plane timing</h3>
+        <p>
+          Claim at risk: validation outcome relied on stale or incomplete trust
+          status at time T.
+        </p>
+        <p>Minimum artifacts to test integrity:</p>
+        <ul>
+          <li>
+            OCSP or CRL evidence and retrieval timestamps used by the validator.
+          </li>
+          <li>TL or LOTL snapshot identifiers and retrieval timestamps.</li>
+          <li>
+            Validation policy and decision record for the exact decision time.
+          </li>
+        </ul>
+        <p>Who needs to verify:</p>
+        <ul>
+          <li>
+            Relying party and dispute resolver: correctness of trust snapshot at
+            time T.
+          </li>
+          <li>
+            Supervisory authorities: publication and synchronization behavior
+            across status endpoints.
+          </li>
+        </ul>
+      </section>
+
+      <p>
+        Focused mechanism question (operator and assessor): "Which evaluated
+        boundary prevents QTSP-side SAD minting or replay, and which signed
+        artifact can the signer retain to prove that boundary was enforced for
+        this signature event?"
+      </p>
+      <p>
+        Focused mechanism question (frontend impersonation path): "Which
+        boundary prevents post-confirmation DTBS content or hash substitution
+        while reusing a valid authenticated session, and which retained artifact
+        proves the remote QSCD signed exactly the hash shown to the user?"
+      </p>
+    </section>
+
     <section class="informative" id="alternative">
       <h2>Alternative</h2>
-      <p>
-        This section is non-normative.
-      </p>
       <p>
         Current local QSCD deployments are often inconvenient in real service
         use. If that usability gap remains, market and integration pressure will
@@ -1577,7 +1743,7 @@
       </p>
       <p>
         The alternative path in this report is not "keep today's inconvenient
-        local model." The alternative path is to make the end-user device itself
+        local model." The alternative path is to make the consumer device itself
         the practical QSCD boundary: mobile phone, tablet, laptop, or desktop
         with secure key custody, trusted local verification, and explicit signer
         intent capture.
@@ -1597,9 +1763,9 @@
         </li>
       </ul>
       <p>
-        In the end-user-device QSCD path, sensitive authorization material does
-        not require continuous exposure to remote service planes. The signer
-        endpoint is also not required to accept arbitrary inbound signing
+        In the consumer-device QSCD path, sensitive authorization material does
+        not require continuous exposure to remote service planes. The consumer
+        device is also not required to accept arbitrary inbound signing
         requests on open ports; network exposure can be constrained to explicit
         user-initiated signing moments.
       </p>
@@ -1611,79 +1777,13 @@
         [[LQSCDREPORT]].
       </p>
       <p>
-        Inference: modern endpoint devices already contain many of the technical
+        Inference: modern consumer devices already contain many of the technical
         primitives needed for QSCD-aligned operation (secure hardware boundary,
         local user verification signals, trusted execution or key-storage
         components, and user-presence signals). The remaining gap is primarily
         standardized proof-artifact generation, interoperability profile
         alignment, and conformity evidence packaging, not absence of core
         hardware capabilities.
-      </p>
-    </section>
-
-    <section class="informative" id="minimum-evidence-artifacts-to-request">
-      <h2>Minimum Evidence Artifacts to Request in Disputes</h2>
-      <p>
-        Critical variant: if the wallet or frontend component that generates the
-        authorization request is hijacked, an attacker can replace the DTBS hash
-        (or related authorization headers and session fields) after the user
-        confirms. In that case, the remote QSCD may sign the attacker-selected
-        hash while all downstream cryptographic checks still pass.
-      </p>
-      <p>
-        To test sole-control claims against that frontend-compromise path,
-        relying parties and signers should request:
-      </p>
-      <ol>
-        <li>
-          A per-signature authorization artifact generated in a trusted local
-          boundary, binding signer identity, signing key id, DTBS hash,
-          canonical request-header hash, session context, nonce, expiry, and a
-          hash of the exact payload representation shown for user confirmation.
-        </li>
-        <li>
-          Evidence that the remote signing service validated exactly that
-          artifact and exactly that DTBS hash (not only that a signature exists
-          for some hash).
-        </li>
-        <li>
-          Evidence of which client-application authentication mechanism was used
-          at request time, which client credential identity was accepted, and
-          how that identity was bound to the authorization session.
-        </li>
-        <li>
-          Independent timestamping and integrity protection for authorization and
-          verification records outside mutable application logs.
-        </li>
-        <li>
-          Evidence of anti-replay and anti-substitution checks at the SAD and
-          request-validation point, including rejected attempt records.
-        </li>
-        <li>
-          Trust-list and certificate-status evidence as observed at validation
-          time, including retrieval timestamps.
-        </li>
-      </ol>
-      <p>
-        A focused mechanism question for service operators and assessors: "Which
-        evaluated boundary prevents QTSP-side SAD minting or replay, and which
-        signed artifact can the signer retain to prove that boundary was
-        enforced for this signature event?"
-      </p>
-      <p>
-        Additional mechanism question for frontend compromise: "Which boundary
-        prevents post-confirmation DTBS hash or header substitution by the
-        wallet/frontend, which client-authentication method actually identifies
-        that frontend instance, and which retained artifact proves the remote
-        QSCD signed exactly the hash shown to the user?"
-      </p>
-    </section>
-
-    <section id="conformance">
-      <h2>Conformance</h2>
-      <p>
-        This is an informative threat model and has no conformance classes or
-        normative requirements.
       </p>
     </section>
   </body>
