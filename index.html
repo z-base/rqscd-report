@@ -204,8 +204,8 @@
       <h2>Status of This Threat Model</h2>
       <p>
         This document is an informal threat model snapshot dated
-        <time datetime="2026-02-20">20 February 2026</time>. It is an
-        analytical report only.
+        <time datetime="2026-02-20">20 February 2026</time>. It is an analytical
+        report only.
       </p>
       <p>
         It does not define standards requirements, certification criteria, or
@@ -215,6 +215,10 @@
         This report uses primary legal text (EUR-Lex) and publicly available
         ETSI material. EN 419 241 terminology is referenced via ETSI/CEN support
         material where full EN text is not publicly reproduced [[CENETSI2024]].
+      </p>
+      <p>
+        AI-assistance transparency: this report was produced with assistance
+        from GPT-5.3-Codex under human editorial control.
       </p>
     </section>
 
@@ -252,8 +256,8 @@
 
         <dt>eIDAS</dt>
         <dd>
-          Regulation (EU) No 910/2014 and amendments, as published on
-          EUR-Lex [[EIDAS910]] [[EIDAS2024_1183]].
+          Regulation (EU) No 910/2014 and amendments, as published on EUR-Lex
+          [[EIDAS910]] [[EIDAS2024_1183]].
         </dd>
 
         <dt>EUR-Lex</dt>
@@ -265,15 +269,15 @@
         <dt>ETSI</dt>
         <dd>
           European Telecommunications Standards Institute; publishes technical
-          standards such as ETSI TS 119 431-1, ETSI TS 119 431-2, ETSI TS
-          119 432, and ETSI EN 319 401 [[ETSI119431_1]] [[ETSI119431_2]]
+          standards such as ETSI TS 119 431-1, ETSI TS 119 431-2, ETSI TS 119
+          432, and ETSI EN 319 401 [[ETSI119431_1]] [[ETSI119431_2]]
           [[ETSI119432]] [[ETSI319401]].
         </dd>
 
         <dt>CEN</dt>
         <dd>
-          European Committee for Standardization; relevant for EN 419 241
-          family context in remote signing [[CENETSI2024]].
+          European Committee for Standardization; relevant for EN 419 241 family
+          context in remote signing [[CENETSI2024]].
         </dd>
 
         <dt>EN</dt>
@@ -325,7 +329,8 @@
         <dd>
           Target of Evaluation boundary used in security evaluation: functions
           that must be inside this boundary are enforced by evaluated security
-          mechanisms; controls outside are assurance or operational dependencies.
+          mechanisms; controls outside are assurance or operational
+          dependencies.
         </dd>
 
         <dt>Device state attestation</dt>
@@ -374,8 +379,7 @@
         <dt>Session context</dt>
         <dd>
           Request/session binding values linking authorization, SAD, and signing
-          request instances to reduce replay/substitution risk
-          [[ETSI119431_1]].
+          request instances to reduce replay/substitution risk [[ETSI119431_1]].
         </dd>
 
         <dt>Client application authentication</dt>
@@ -399,10 +403,10 @@
         </dd>
       </dl>
       <p>
-        Terminology linkage rule used in this report:
-        legal claim (eIDAS on EUR-Lex) -> standards control (ETSI/CEN/EN/TS) ->
-        operational flow node (SAD/DTBS hash/session context/QSCD) ->
-        verifier-visible artifact -> dispute outcome.
+        Terminology linkage rule used in this report: legal claim (eIDAS on
+        EUR-Lex) -> standards control (ETSI/CEN/EN/TS) -> operational flow node
+        (SAD/DTBS hash/session context/QSCD) -> verifier-visible artifact ->
+        dispute outcome.
       </p>
     </section>
 
@@ -445,8 +449,8 @@
       <p>
         ETSI TS 119 431-2 adds control requirements for AdES signature-creation
         service components, including event logging and data-protection
-        constraints that complement EN 319 401 and TS 119 431-1
-        [[ETSI119431_2]] [[ETSI319401]].
+        constraints that complement EN 319 401 and TS 119 431-1 [[ETSI119431_2]]
+        [[ETSI319401]].
       </p>
       <p>
         ETSI TS 119 432 defines the API message model used by many remote-
@@ -743,8 +747,8 @@
           controls in remote-signing activation flows [[ETSI119431_1]].
         </li>
         <li>
-          Logging, incident, infrastructure, and network controls
-          [[ETSI319401]] [[ETSI119431_2]].
+          Logging, incident, infrastructure, and network controls [[ETSI319401]]
+          [[ETSI119431_2]].
         </li>
         <li>
           API-level client authentication components for remote-signing requests
@@ -846,7 +850,9 @@
             stroke-width="1.3"
           ></rect>
           <text x="90" y="138" font-size="14" fill="#111827">Signer</text>
-          <text x="67" y="156" font-size="13" fill="#111827">sees content A</text>
+          <text x="67" y="156" font-size="13" fill="#111827">
+            sees content A
+          </text>
 
           <rect
             x="270"
@@ -1237,7 +1243,9 @@
             </td>
           </tr>
           <tr>
-            <td>R2. Internal privileged misuse inside remote-signing control plane</td>
+            <td>
+              R2. Internal privileged misuse inside remote-signing control plane
+            </td>
             <td>
               Policy and audit controls reduce probability but do not create
               cryptographic impossibility of privileged misuse. If activation
@@ -1255,8 +1263,8 @@
               signature-activation decision.
             </td>
             <td>
-              Supervisors and CABs verify split-control design and log anchoring;
-              signer and relying party verify event inclusion proofs.
+              Supervisors and CABs verify split-control design and log
+              anchoring; signer and relying party verify event inclusion proofs.
             </td>
           </tr>
           <tr>
@@ -1290,8 +1298,7 @@
             </td>
             <td>
               eIDAS validation and trust-list framework with operational
-              publication controls [[EIDAS910]] [[TL2015_1505]]
-              [[ETSI319401]].
+              publication controls [[EIDAS910]] [[TL2015_1505]] [[ETSI319401]].
             </td>
             <td>
               Signed validation transcript containing retrieved OCSP or CRL
@@ -1299,9 +1306,9 @@
               object digests, and validator-policy hash.
             </td>
             <td>
-              Relying party and dispute resolver verify transcript reproducibility
-              for decision time T; supervisor verifies endpoint publication
-              behavior.
+              Relying party and dispute resolver verify transcript
+              reproducibility for decision time T; supervisor verifies endpoint
+              publication behavior.
             </td>
           </tr>
         </tbody>
@@ -1317,54 +1324,223 @@
           aria-label="R1 diagram showing compromised frontend path and required signer-bound intent proof path."
         >
           <defs>
-            <marker id="r1Arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r1Arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
             </marker>
-            <marker id="r1ArrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r1ArrowR"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#8a1c1c"></path>
             </marker>
-            <marker id="r1ArrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r1ArrowG"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#166534"></path>
             </marker>
           </defs>
 
-          <rect x="24" y="30" width="1372" height="238" rx="10" ry="10" fill="#fff" stroke="#d2d7df" stroke-width="1.2"></rect>
+          <rect
+            x="24"
+            y="30"
+            width="1372"
+            height="238"
+            rx="10"
+            ry="10"
+            fill="#fff"
+            stroke="#d2d7df"
+            stroke-width="1.2"
+          ></rect>
           <text x="44" y="55" font-size="13" fill="#4b5563">
-            Red path: compromised frontend submits B. Green path: signer-bound proof required before activation.
+            Red path: compromised frontend submits B. Green path: signer-bound
+            proof required before activation.
           </text>
 
-          <rect x="46" y="106" width="180" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <rect
+            x="46"
+            y="106"
+            width="180"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
           <text x="95" y="142" font-size="14" fill="#111827">Signer UI</text>
 
-          <rect x="258" y="106" width="240" height="62" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
-          <text x="286" y="130" font-size="14" fill="#111827">Compromised frontend</text>
-          <text x="286" y="149" font-size="13" fill="#111827">shows A, submits hash B</text>
+          <rect
+            x="258"
+            y="106"
+            width="240"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#fdeaea"
+            stroke="#8a1c1c"
+            stroke-width="1.3"
+          ></rect>
+          <text x="286" y="130" font-size="14" fill="#111827">
+            Compromised frontend
+          </text>
+          <text x="286" y="149" font-size="13" fill="#111827">
+            shows A, submits hash B
+          </text>
 
-          <rect x="532" y="106" width="220" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
-          <text x="569" y="142" font-size="14" fill="#111827">Remote validator</text>
+          <rect
+            x="532"
+            y="106"
+            width="220"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="569" y="142" font-size="14" fill="#111827">
+            Remote validator
+          </text>
 
-          <rect x="786" y="106" width="220" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
-          <text x="817" y="130" font-size="14" fill="#111827">Isolated policy gate</text>
-          <text x="818" y="149" font-size="13" fill="#111827">proof + hash equality</text>
+          <rect
+            x="786"
+            y="106"
+            width="220"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="817" y="130" font-size="14" fill="#111827">
+            Isolated policy gate
+          </text>
+          <text x="818" y="149" font-size="13" fill="#111827">
+            proof + hash equality
+          </text>
 
-          <rect x="1040" y="106" width="150" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <rect
+            x="1040"
+            y="106"
+            width="150"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
           <text x="1086" y="142" font-size="14" fill="#111827">QSCD</text>
 
-          <rect x="1224" y="106" width="154" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <rect
+            x="1224"
+            y="106"
+            width="154"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
           <text x="1256" y="142" font-size="14" fill="#111827">Outcome</text>
 
-          <line x1="226" y1="137" x2="258" y2="137" stroke="#1f2937" stroke-width="2" marker-end="url(#r1Arrow)"></line>
-          <line x1="498" y1="137" x2="532" y2="137" stroke="#8a1c1c" stroke-width="2.2" marker-end="url(#r1ArrowR)"></line>
-          <line x1="752" y1="137" x2="786" y2="137" stroke="#1f2937" stroke-width="2" marker-end="url(#r1Arrow)"></line>
-          <line x1="1006" y1="137" x2="1040" y2="137" stroke="#1f2937" stroke-width="2" marker-end="url(#r1Arrow)"></line>
-          <line x1="1190" y1="137" x2="1224" y2="137" stroke="#1f2937" stroke-width="2" marker-end="url(#r1Arrow)"></line>
+          <line
+            x1="226"
+            y1="137"
+            x2="258"
+            y2="137"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r1Arrow)"
+          ></line>
+          <line
+            x1="498"
+            y1="137"
+            x2="532"
+            y2="137"
+            stroke="#8a1c1c"
+            stroke-width="2.2"
+            marker-end="url(#r1ArrowR)"
+          ></line>
+          <line
+            x1="752"
+            y1="137"
+            x2="786"
+            y2="137"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r1Arrow)"
+          ></line>
+          <line
+            x1="1006"
+            y1="137"
+            x2="1040"
+            y2="137"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r1Arrow)"
+          ></line>
+          <line
+            x1="1190"
+            y1="137"
+            x2="1224"
+            y2="137"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r1Arrow)"
+          ></line>
 
-          <rect x="226" y="196" width="520" height="52" rx="8" ry="8" fill="#eaf7ef" stroke="#166534" stroke-width="1.3"></rect>
-          <text x="244" y="217" font-size="13" fill="#111827">Signer-held secure boundary emits signed intent proof:</text>
-          <text x="244" y="235" font-size="12" fill="#111827">display hash + DTBS hash + tx id + nonce + key id</text>
+          <rect
+            x="226"
+            y="196"
+            width="520"
+            height="52"
+            rx="8"
+            ry="8"
+            fill="#eaf7ef"
+            stroke="#166534"
+            stroke-width="1.3"
+          ></rect>
+          <text x="244" y="217" font-size="13" fill="#111827">
+            Signer-held secure boundary emits signed intent proof:
+          </text>
+          <text x="244" y="235" font-size="12" fill="#111827">
+            display hash + DTBS hash + tx id + nonce + key id
+          </text>
 
-          <line x1="746" y1="222" x2="786" y2="160" stroke="#166534" stroke-width="2.2" marker-end="url(#r1ArrowG)"></line>
-          <text x="792" y="188" font-size="12" fill="#166534">mandatory verification input</text>
+          <line
+            x1="746"
+            y1="222"
+            x2="786"
+            y2="160"
+            stroke="#166534"
+            stroke-width="2.2"
+            marker-end="url(#r1ArrowG)"
+          ></line>
+          <text x="792" y="188" font-size="12" fill="#166534">
+            mandatory verification input
+          </text>
         </svg>
       </figure>
       <figure class="flow-figure">
@@ -1378,53 +1554,224 @@
           aria-label="R2 diagram showing privileged operator risk and split-control plus transparency log hard stop."
         >
           <defs>
-            <marker id="r2Arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r2Arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
             </marker>
-            <marker id="r2ArrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r2ArrowR"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#8a1c1c"></path>
             </marker>
-            <marker id="r2ArrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r2ArrowG"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#166534"></path>
             </marker>
           </defs>
 
-          <rect x="24" y="30" width="1372" height="238" rx="10" ry="10" fill="#fff" stroke="#d2d7df" stroke-width="1.2"></rect>
+          <rect
+            x="24"
+            y="30"
+            width="1372"
+            height="238"
+            rx="10"
+            ry="10"
+            fill="#fff"
+            stroke="#d2d7df"
+            stroke-width="1.2"
+          ></rect>
           <text x="44" y="55" font-size="13" fill="#4b5563">
-            Internal abuse path needs dual independent approvals and external log witnessing.
+            Internal abuse path needs dual independent approvals and external
+            log witnessing.
           </text>
 
-          <rect x="48" y="106" width="190" height="62" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
-          <text x="81" y="142" font-size="14" fill="#111827">Privileged actor</text>
+          <rect
+            x="48"
+            y="106"
+            width="190"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#fdeaea"
+            stroke="#8a1c1c"
+            stroke-width="1.3"
+          ></rect>
+          <text x="81" y="142" font-size="14" fill="#111827">
+            Privileged actor
+          </text>
 
-          <rect x="274" y="106" width="240" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
-          <text x="308" y="131" font-size="14" fill="#111827">Control domain A</text>
-          <text x="310" y="149" font-size="13" fill="#111827">approval token A</text>
+          <rect
+            x="274"
+            y="106"
+            width="240"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="308" y="131" font-size="14" fill="#111827">
+            Control domain A
+          </text>
+          <text x="310" y="149" font-size="13" fill="#111827">
+            approval token A
+          </text>
 
-          <rect x="548" y="106" width="240" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
-          <text x="582" y="131" font-size="14" fill="#111827">Control domain B</text>
-          <text x="584" y="149" font-size="13" fill="#111827">approval token B</text>
+          <rect
+            x="548"
+            y="106"
+            width="240"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="582" y="131" font-size="14" fill="#111827">
+            Control domain B
+          </text>
+          <text x="584" y="149" font-size="13" fill="#111827">
+            approval token B
+          </text>
 
-          <rect x="824" y="106" width="220" height="62" rx="8" ry="8" fill="#eaf7ef" stroke="#166534" stroke-width="1.4"></rect>
-          <text x="861" y="131" font-size="14" fill="#111827">Activation gate</text>
-          <text x="844" y="149" font-size="13" fill="#111827">requires A+B + log receipt</text>
+          <rect
+            x="824"
+            y="106"
+            width="220"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eaf7ef"
+            stroke="#166534"
+            stroke-width="1.4"
+          ></rect>
+          <text x="861" y="131" font-size="14" fill="#111827">
+            Activation gate
+          </text>
+          <text x="844" y="149" font-size="13" fill="#111827">
+            requires A+B + log receipt
+          </text>
 
-          <rect x="1080" y="106" width="150" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <rect
+            x="1080"
+            y="106"
+            width="150"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
           <text x="1126" y="142" font-size="14" fill="#111827">QSCD</text>
 
-          <rect x="1262" y="106" width="118" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <rect
+            x="1262"
+            y="106"
+            width="118"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
           <text x="1292" y="142" font-size="14" fill="#111827">Sign</text>
 
-          <line x1="238" y1="137" x2="274" y2="137" stroke="#8a1c1c" stroke-width="2.2" marker-end="url(#r2ArrowR)"></line>
-          <line x1="514" y1="137" x2="548" y2="137" stroke="#1f2937" stroke-width="2" marker-end="url(#r2Arrow)"></line>
-          <line x1="788" y1="137" x2="824" y2="137" stroke="#1f2937" stroke-width="2" marker-end="url(#r2Arrow)"></line>
-          <line x1="1044" y1="137" x2="1080" y2="137" stroke="#1f2937" stroke-width="2" marker-end="url(#r2Arrow)"></line>
-          <line x1="1230" y1="137" x2="1262" y2="137" stroke="#1f2937" stroke-width="2" marker-end="url(#r2Arrow)"></line>
+          <line
+            x1="238"
+            y1="137"
+            x2="274"
+            y2="137"
+            stroke="#8a1c1c"
+            stroke-width="2.2"
+            marker-end="url(#r2ArrowR)"
+          ></line>
+          <line
+            x1="514"
+            y1="137"
+            x2="548"
+            y2="137"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r2Arrow)"
+          ></line>
+          <line
+            x1="788"
+            y1="137"
+            x2="824"
+            y2="137"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r2Arrow)"
+          ></line>
+          <line
+            x1="1044"
+            y1="137"
+            x2="1080"
+            y2="137"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r2Arrow)"
+          ></line>
+          <line
+            x1="1230"
+            y1="137"
+            x2="1262"
+            y2="137"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r2Arrow)"
+          ></line>
 
-          <rect x="420" y="198" width="560" height="50" rx="8" ry="8" fill="#eaf7ef" stroke="#166534" stroke-width="1.3"></rect>
-          <text x="438" y="218" font-size="13" fill="#111827">Externally witnessed append-only transparency log</text>
-          <text x="438" y="236" font-size="12" fill="#111827">activation event hash + inclusion proof required before signing</text>
-          <line x1="980" y1="223" x2="824" y2="162" stroke="#166534" stroke-width="2.1" marker-end="url(#r2ArrowG)"></line>
+          <rect
+            x="420"
+            y="198"
+            width="560"
+            height="50"
+            rx="8"
+            ry="8"
+            fill="#eaf7ef"
+            stroke="#166534"
+            stroke-width="1.3"
+          ></rect>
+          <text x="438" y="218" font-size="13" fill="#111827">
+            Externally witnessed append-only transparency log
+          </text>
+          <text x="438" y="236" font-size="12" fill="#111827">
+            activation event hash + inclusion proof required before signing
+          </text>
+          <line
+            x1="980"
+            y1="223"
+            x2="824"
+            y2="162"
+            stroke="#166534"
+            stroke-width="2.1"
+            marker-end="url(#r2ArrowG)"
+          ></line>
         </svg>
       </figure>
       <figure class="flow-figure">
@@ -1439,53 +1786,207 @@
           aria-label="R3 diagram showing delegated assertion chain and required signer-device attestation binding."
         >
           <defs>
-            <marker id="r3Arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r3Arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
             </marker>
-            <marker id="r3ArrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r3ArrowR"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#8a1c1c"></path>
             </marker>
-            <marker id="r3ArrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r3ArrowG"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#166534"></path>
             </marker>
           </defs>
 
-          <rect x="24" y="30" width="1372" height="238" rx="10" ry="10" fill="#fff" stroke="#d2d7df" stroke-width="1.2"></rect>
+          <rect
+            x="24"
+            y="30"
+            width="1372"
+            height="238"
+            rx="10"
+            ry="10"
+            fill="#fff"
+            stroke="#d2d7df"
+            stroke-width="1.2"
+          ></rect>
           <text x="44" y="55" font-size="13" fill="#4b5563">
-            Delegated assertions may be valid but refer to wrong intent chain; device attestation alone does not prove sole control.
+            Delegated assertions may be valid but refer to wrong intent chain;
+            device attestation alone does not prove sole control.
           </text>
 
-          <rect x="48" y="106" width="190" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
-          <text x="78" y="142" font-size="14" fill="#111827">Identity assertion</text>
+          <rect
+            x="48"
+            y="106"
+            width="190"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="78" y="142" font-size="14" fill="#111827">
+            Identity assertion
+          </text>
 
-          <rect x="274" y="106" width="230" height="62" rx="8" ry="8" fill="#fdeaea" stroke="#8a1c1c" stroke-width="1.3"></rect>
-          <text x="306" y="131" font-size="14" fill="#111827">Delegated translator</text>
-          <text x="320" y="149" font-size="13" fill="#111827">context may drift</text>
+          <rect
+            x="274"
+            y="106"
+            width="230"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#fdeaea"
+            stroke="#8a1c1c"
+            stroke-width="1.3"
+          ></rect>
+          <text x="306" y="131" font-size="14" fill="#111827">
+            Delegated translator
+          </text>
+          <text x="320" y="149" font-size="13" fill="#111827">
+            context may drift
+          </text>
 
-          <rect x="540" y="106" width="220" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
-          <text x="566" y="142" font-size="14" fill="#111827">Remote verifier</text>
+          <rect
+            x="540"
+            y="106"
+            width="220"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="566" y="142" font-size="14" fill="#111827">
+            Remote verifier
+          </text>
 
-          <rect x="798" y="106" width="170" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <rect
+            x="798"
+            y="106"
+            width="170"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
           <text x="846" y="142" font-size="14" fill="#111827">QSCD</text>
 
-          <rect x="1002" y="106" width="378" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
-          <text x="1030" y="131" font-size="14" fill="#111827">Signature may be valid yet attribution chain disputed</text>
-          <text x="1048" y="149" font-size="13" fill="#111827">if provenance is assertion-only</text>
+          <rect
+            x="1002"
+            y="106"
+            width="378"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="1030" y="131" font-size="14" fill="#111827">
+            Signature may be valid yet attribution chain disputed
+          </text>
+          <text x="1048" y="149" font-size="13" fill="#111827">
+            if provenance is assertion-only
+          </text>
 
-          <line x1="238" y1="137" x2="274" y2="137" stroke="#1f2937" stroke-width="2" marker-end="url(#r3Arrow)"></line>
-          <line x1="504" y1="137" x2="540" y2="137" stroke="#8a1c1c" stroke-width="2.2" marker-end="url(#r3ArrowR)"></line>
-          <line x1="760" y1="137" x2="798" y2="137" stroke="#1f2937" stroke-width="2" marker-end="url(#r3Arrow)"></line>
-          <line x1="968" y1="137" x2="1002" y2="137" stroke="#1f2937" stroke-width="2" marker-end="url(#r3Arrow)"></line>
+          <line
+            x1="238"
+            y1="137"
+            x2="274"
+            y2="137"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r3Arrow)"
+          ></line>
+          <line
+            x1="504"
+            y1="137"
+            x2="540"
+            y2="137"
+            stroke="#8a1c1c"
+            stroke-width="2.2"
+            marker-end="url(#r3ArrowR)"
+          ></line>
+          <line
+            x1="760"
+            y1="137"
+            x2="798"
+            y2="137"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r3Arrow)"
+          ></line>
+          <line
+            x1="968"
+            y1="137"
+            x2="1002"
+            y2="137"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r3Arrow)"
+          ></line>
 
-          <rect x="344" y="198" width="780" height="50" rx="8" ry="8" fill="#eaf7ef" stroke="#166534" stroke-width="1.3"></rect>
-          <text x="362" y="218" font-size="13" fill="#111827">Attestation proves device/session provenance only (signer id + tx id + DTBS hash)</text>
-          <text x="362" y="236" font-size="12" fill="#111827">sole control additionally needs trusted signer-intent proof bound to signature</text>
-          <line x1="984" y1="223" x2="760" y2="160" stroke="#166534" stroke-width="2.1" marker-end="url(#r3ArrowG)"></line>
+          <rect
+            x="344"
+            y="198"
+            width="780"
+            height="50"
+            rx="8"
+            ry="8"
+            fill="#eaf7ef"
+            stroke="#166534"
+            stroke-width="1.3"
+          ></rect>
+          <text x="362" y="218" font-size="13" fill="#111827">
+            Attestation proves device/session provenance only (signer id + tx id
+            + DTBS hash)
+          </text>
+          <text x="362" y="236" font-size="12" fill="#111827">
+            sole control additionally needs trusted signer-intent proof bound to
+            signature
+          </text>
+          <line
+            x1="984"
+            y1="223"
+            x2="760"
+            y2="160"
+            stroke="#166534"
+            stroke-width="2.1"
+            marker-end="url(#r3ArrowG)"
+          ></line>
         </svg>
       </figure>
       <figure class="flow-figure">
         <figcaption>
-          Scenario R4 Diagram: validation-time snapshot and reproducible transcript
+          Scenario R4 Diagram: validation-time snapshot and reproducible
+          transcript
         </figcaption>
         <svg
           class="flow-svg"
@@ -1494,58 +1995,218 @@
           aria-label="R4 diagram showing trust status retrieval at time T and signed validation transcript for reproducibility."
         >
           <defs>
-            <marker id="r4Arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r4Arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
             </marker>
-            <marker id="r4ArrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r4ArrowG"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#166534"></path>
             </marker>
-            <marker id="r4ArrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="r4ArrowR"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#8a1c1c"></path>
             </marker>
           </defs>
 
-          <rect x="24" y="30" width="1372" height="238" rx="10" ry="10" fill="#fff" stroke="#d2d7df" stroke-width="1.2"></rect>
+          <rect
+            x="24"
+            y="30"
+            width="1372"
+            height="238"
+            rx="10"
+            ry="10"
+            fill="#fff"
+            stroke="#d2d7df"
+            stroke-width="1.2"
+          ></rect>
           <text x="44" y="55" font-size="13" fill="#4b5563">
-            Decision depends on observed trust state at time T; capture and sign the full validation transcript.
+            Decision depends on observed trust state at time T; capture and sign
+            the full validation transcript.
           </text>
 
-          <rect x="44" y="110" width="200" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
-          <text x="68" y="136" font-size="14" fill="#111827">Signature + cert</text>
+          <rect
+            x="44"
+            y="110"
+            width="200"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="68" y="136" font-size="14" fill="#111827">
+            Signature + cert
+          </text>
           <text x="96" y="154" font-size="13" fill="#111827">input object</text>
 
-          <rect x="282" y="62" width="220" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <rect
+            x="282"
+            y="62"
+            width="220"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
           <text x="336" y="98" font-size="14" fill="#111827">OCSP/CRL</text>
-          <rect x="282" y="158" width="220" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <rect
+            x="282"
+            y="158"
+            width="220"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
           <text x="344" y="194" font-size="14" fill="#111827">TL/LOTL</text>
 
-          <rect x="544" y="110" width="250" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
-          <text x="572" y="136" font-size="14" fill="#111827">Validator snapshot at T</text>
-          <text x="590" y="154" font-size="13" fill="#111827">decision material set</text>
+          <rect
+            x="544"
+            y="110"
+            width="250"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="572" y="136" font-size="14" fill="#111827">
+            Validator snapshot at T
+          </text>
+          <text x="590" y="154" font-size="13" fill="#111827">
+            decision material set
+          </text>
 
-          <rect x="834" y="110" width="250" height="62" rx="8" ry="8" fill="#eaf7ef" stroke="#166534" stroke-width="1.4"></rect>
-          <text x="858" y="136" font-size="14" fill="#111827">Signed validation transcript</text>
-          <text x="860" y="154" font-size="13" fill="#111827">objects + digests + timestamps</text>
+          <rect
+            x="834"
+            y="110"
+            width="250"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eaf7ef"
+            stroke="#166534"
+            stroke-width="1.4"
+          ></rect>
+          <text x="858" y="136" font-size="14" fill="#111827">
+            Signed validation transcript
+          </text>
+          <text x="860" y="154" font-size="13" fill="#111827">
+            objects + digests + timestamps
+          </text>
 
-          <rect x="1124" y="110" width="250" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
-          <text x="1148" y="136" font-size="14" fill="#111827">Relying party / dispute resolver</text>
-          <text x="1156" y="154" font-size="13" fill="#111827">reproduces decision at time T</text>
+          <rect
+            x="1124"
+            y="110"
+            width="250"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
+          <text x="1148" y="136" font-size="14" fill="#111827">
+            Relying party / dispute resolver
+          </text>
+          <text x="1156" y="154" font-size="13" fill="#111827">
+            reproduces decision at time T
+          </text>
 
-          <line x1="244" y1="141" x2="544" y2="141" stroke="#1f2937" stroke-width="2" marker-end="url(#r4Arrow)"></line>
-          <line x1="502" y1="93" x2="544" y2="128" stroke="#1f2937" stroke-width="2" marker-end="url(#r4Arrow)"></line>
-          <line x1="502" y1="189" x2="544" y2="154" stroke="#1f2937" stroke-width="2" marker-end="url(#r4Arrow)"></line>
-          <line x1="794" y1="141" x2="834" y2="141" stroke="#166534" stroke-width="2.2" marker-end="url(#r4ArrowG)"></line>
-          <line x1="1084" y1="141" x2="1124" y2="141" stroke="#1f2937" stroke-width="2" marker-end="url(#r4Arrow)"></line>
+          <line
+            x1="244"
+            y1="141"
+            x2="544"
+            y2="141"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r4Arrow)"
+          ></line>
+          <line
+            x1="502"
+            y1="93"
+            x2="544"
+            y2="128"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r4Arrow)"
+          ></line>
+          <line
+            x1="502"
+            y1="189"
+            x2="544"
+            y2="154"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r4Arrow)"
+          ></line>
+          <line
+            x1="794"
+            y1="141"
+            x2="834"
+            y2="141"
+            stroke="#166534"
+            stroke-width="2.2"
+            marker-end="url(#r4ArrowG)"
+          ></line>
+          <line
+            x1="1084"
+            y1="141"
+            x2="1124"
+            y2="141"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#r4Arrow)"
+          ></line>
 
-          <line x1="392" y1="124" x2="392" y2="158" stroke="#8a1c1c" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#r4ArrowR)"></line>
-          <text x="405" y="145" font-size="12" fill="#8a1c1c">timing window risk</text>
+          <line
+            x1="392"
+            y1="124"
+            x2="392"
+            y2="158"
+            stroke="#8a1c1c"
+            stroke-width="1.8"
+            stroke-dasharray="6 4"
+            marker-end="url(#r4ArrowR)"
+          ></line>
+          <text x="405" y="145" font-size="12" fill="#8a1c1c">
+            timing window risk
+          </text>
         </svg>
       </figure>
       <aside class="note" title="Model boundary statement">
         <p>
           This model assumes ETSI/CEN/EN controls are implemented and still asks
-          whether misuse can remain possible unless there is a verifier-checkable
-          hard stop in a separate trust boundary.
+          whether misuse can remain possible unless there is a
+          verifier-checkable hard stop in a separate trust boundary.
         </p>
       </aside>
     </section>
@@ -1622,50 +2283,202 @@
           aria-label="Diagram showing strict sole-control proof chain from PID-linked identity to biometric and device-state evidence, then intent proof and final signature container."
         >
           <defs>
-            <marker id="scpArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="scpArrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"></path>
             </marker>
-            <marker id="scpArrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker
+              id="scpArrowG"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
               <path d="M0 0 L10 5 L0 10 z" fill="#166534"></path>
             </marker>
           </defs>
 
-          <rect x="20" y="36" width="1420" height="228" rx="10" ry="10" fill="#fff" stroke="#d2d7df" stroke-width="1.2"></rect>
+          <rect
+            x="20"
+            y="36"
+            width="1420"
+            height="228"
+            rx="10"
+            ry="10"
+            fill="#fff"
+            stroke="#d2d7df"
+            stroke-width="1.2"
+          ></rect>
           <text x="40" y="60" font-size="13" fill="#4b5563">
-            Every arrow is a cryptographic binding; missing links invalidate activation.
+            Every arrow is a cryptographic binding; missing links invalidate
+            activation.
           </text>
 
-          <rect x="40" y="114" width="220" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <rect
+            x="40"
+            y="114"
+            width="220"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
           <text x="104" y="139" font-size="14" fill="#111827">PID root</text>
-          <text x="80" y="157" font-size="13" fill="#111827">identity-device link</text>
+          <text x="80" y="157" font-size="13" fill="#111827">
+            identity-device link
+          </text>
 
-          <rect x="292" y="114" width="230" height="62" rx="8" ry="8" fill="#eaf7ef" stroke="#166534" stroke-width="1.3"></rect>
-          <text x="336" y="139" font-size="14" fill="#111827">Biometric event</text>
-          <text x="332" y="157" font-size="13" fill="#111827">with liveness proof</text>
+          <rect
+            x="292"
+            y="114"
+            width="230"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eaf7ef"
+            stroke="#166534"
+            stroke-width="1.3"
+          ></rect>
+          <text x="336" y="139" font-size="14" fill="#111827">
+            Biometric event
+          </text>
+          <text x="332" y="157" font-size="13" fill="#111827">
+            with liveness proof
+          </text>
 
-          <rect x="554" y="114" width="230" height="62" rx="8" ry="8" fill="#eaf7ef" stroke="#166534" stroke-width="1.3"></rect>
-          <text x="596" y="139" font-size="14" fill="#111827">Device state</text>
-          <text x="578" y="157" font-size="13" fill="#111827">attestation at event</text>
+          <rect
+            x="554"
+            y="114"
+            width="230"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eaf7ef"
+            stroke="#166534"
+            stroke-width="1.3"
+          ></rect>
+          <text x="596" y="139" font-size="14" fill="#111827">
+            Device state
+          </text>
+          <text x="578" y="157" font-size="13" fill="#111827">
+            attestation at event
+          </text>
 
-          <rect x="816" y="114" width="250" height="62" rx="8" ry="8" fill="#eaf7ef" stroke="#166534" stroke-width="1.3"></rect>
-          <text x="844" y="139" font-size="14" fill="#111827">Intent proof record</text>
-          <text x="834" y="157" font-size="13" fill="#111827">display hash == DTBS hash</text>
+          <rect
+            x="816"
+            y="114"
+            width="250"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eaf7ef"
+            stroke="#166534"
+            stroke-width="1.3"
+          ></rect>
+          <text x="844" y="139" font-size="14" fill="#111827">
+            Intent proof record
+          </text>
+          <text x="834" y="157" font-size="13" fill="#111827">
+            display hash == DTBS hash
+          </text>
 
-          <rect x="1098" y="114" width="160" height="62" rx="8" ry="8" fill="#eef5ff" stroke="#214e8a" stroke-width="1.3"></rect>
+          <rect
+            x="1098"
+            y="114"
+            width="160"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#eef5ff"
+            stroke="#214e8a"
+            stroke-width="1.3"
+          ></rect>
           <text x="1144" y="150" font-size="14" fill="#111827">QSCD</text>
 
-          <rect x="1290" y="114" width="132" height="62" rx="8" ry="8" fill="#f5f7fa" stroke="#2f3a4a" stroke-width="1.3"></rect>
+          <rect
+            x="1290"
+            y="114"
+            width="132"
+            height="62"
+            rx="8"
+            ry="8"
+            fill="#f5f7fa"
+            stroke="#2f3a4a"
+            stroke-width="1.3"
+          ></rect>
           <text x="1317" y="150" font-size="14" fill="#111827">Signature</text>
 
-          <line x1="260" y1="145" x2="292" y2="145" stroke="#1f2937" stroke-width="2" marker-end="url(#scpArrow)"></line>
-          <line x1="522" y1="145" x2="554" y2="145" stroke="#166534" stroke-width="2.2" marker-end="url(#scpArrowG)"></line>
-          <line x1="784" y1="145" x2="816" y2="145" stroke="#166534" stroke-width="2.2" marker-end="url(#scpArrowG)"></line>
-          <line x1="1066" y1="145" x2="1098" y2="145" stroke="#1f2937" stroke-width="2" marker-end="url(#scpArrow)"></line>
-          <line x1="1258" y1="145" x2="1290" y2="145" stroke="#1f2937" stroke-width="2" marker-end="url(#scpArrow)"></line>
+          <line
+            x1="260"
+            y1="145"
+            x2="292"
+            y2="145"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#scpArrow)"
+          ></line>
+          <line
+            x1="522"
+            y1="145"
+            x2="554"
+            y2="145"
+            stroke="#166534"
+            stroke-width="2.2"
+            marker-end="url(#scpArrowG)"
+          ></line>
+          <line
+            x1="784"
+            y1="145"
+            x2="816"
+            y2="145"
+            stroke="#166534"
+            stroke-width="2.2"
+            marker-end="url(#scpArrowG)"
+          ></line>
+          <line
+            x1="1066"
+            y1="145"
+            x2="1098"
+            y2="145"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#scpArrow)"
+          ></line>
+          <line
+            x1="1258"
+            y1="145"
+            x2="1290"
+            y2="145"
+            stroke="#1f2937"
+            stroke-width="2"
+            marker-end="url(#scpArrow)"
+          ></line>
 
-          <rect x="410" y="206" width="650" height="42" rx="8" ry="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.1"></rect>
+          <rect
+            x="410"
+            y="206"
+            width="650"
+            height="42"
+            rx="8"
+            ry="8"
+            fill="#f3f4f6"
+            stroke="#9ca3af"
+            stroke-width="1.1"
+          ></rect>
           <text x="428" y="231" font-size="12" fill="#111827">
-            final container includes or binds all proof artifacts for offline independent verification
+            final container includes or binds all proof artifacts for offline
+            independent verification
           </text>
         </svg>
       </figure>
@@ -1685,9 +2498,7 @@
         with secure key custody, trusted local verification, and explicit signer
         intent capture.
       </p>
-      <p>
-        In practical terms, the trade-off is between:
-      </p>
+      <p>In practical terms, the trade-off is between:</p>
       <ul>
         <li>
           high-cost centralized infrastructure that requires trust in operator
@@ -1702,8 +2513,8 @@
       <p>
         In the consumer-device QSCD path, sensitive authorization material does
         not require continuous exposure to remote service planes. The consumer
-        device is also not required to accept arbitrary inbound signing
-        requests on open ports; network exposure can be constrained to explicit
+        device is also not required to accept arbitrary inbound signing requests
+        on open ports; network exposure can be constrained to explicit
         user-initiated signing moments.
       </p>
       <p>
