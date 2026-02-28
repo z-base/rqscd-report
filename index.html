@@ -107,7 +107,7 @@
           },
           EIDAS2025_1567: {
             title:
-              "Commission Implementing Regulation (EU) 2025/1567 laying down reference standards for remote qualified electronic signature and seal creation devices",
+              "Commission Implementing Regulation (EU) 2025/1567 laying down rules for the application of Regulation (EU) No 910/2014 as regards the management of remote qualified electronic signature creation devices and of remote qualified electronic seal creation devices as qualified trust services",
             href: "https://eur-lex.europa.eu/eli/reg_impl/2025/1567/oj/eng",
             publisher: "European Union",
             date: "2025-07-29",
@@ -118,6 +118,13 @@
             href: "https://eur-lex.europa.eu/eli/dec_impl/2015/1505/oj/eng",
             publisher: "European Union",
             date: "2015-09-08",
+          },
+          EIDAS2025_2164: {
+            title:
+              "Commission Implementing Decision (EU) 2025/2164 amending Implementing Decision (EU) 2015/1505 as regards technical specifications and formats relating to trusted lists",
+            href: "https://eur-lex.europa.eu/eli/dec_impl/2025/2164/oj/eng",
+            publisher: "European Union",
+            date: "2025-11-11",
           },
           ETSI119431_1: {
             title:
@@ -135,10 +142,10 @@
           },
           ETSI319401: {
             title:
-              "ETSI EN 319 401 V3.1.1: Electronic Signatures and Trust Infrastructures (ESI); General Policy Requirements for Trust Service Providers",
-            href: "https://www.etsi.org/deliver/etsi_en/319400_319499/319401/03.01.01_60/en_319401v030101p.pdf",
+              "ETSI EN 319 401 V3.2.1: Electronic Signatures and Trust Infrastructures (ESI); General Policy Requirements for Trust Service Providers",
+            href: "https://www.etsi.org/deliver/etsi_en/319400_319499/319401/03.02.01_60/en_319401v030201p.pdf",
             publisher: "ETSI",
-            date: "2024-06",
+            date: "2026-01",
           },
           ETSI119432: {
             title:
@@ -147,19 +154,19 @@
             publisher: "ETSI",
             date: "2020-10",
           },
-          CENETSI2024: {
+          ETSI319102_1: {
             title:
-              "CEN-ETSI Workshop support material on server signing and EN 419 241 terminology",
-            href: "https://docbox.etsi.org/esi/Open/workshops/202409_CEN_ETSI_Workshop/DAY2-6%20Signing%20%26%20the%20Wallet/DAY2-6-26%20ETSI_CEN_WS_Server%20Signing%20Jan%20Kjaersgaard.pdf",
-            publisher: "ETSI/CEN workshop support material",
-            date: "2024-09",
+              "ETSI EN 319 102-1 V1.4.1: Electronic Signatures and Infrastructures (ESI); Procedures for Creation and Validation of AdES Digital Signatures; Part 1: Creation and Validation",
+            href: "https://www.etsi.org/deliver/etsi_en/319100_319199/31910201/01.04.01_60/en_31910201v010401p.pdf",
+            publisher: "ETSI",
+            date: "2024-06",
           },
-          EN4192412PP: {
+          ETSI119102_2: {
             title:
-              "Protection Profile for QSCD for Server Signing (EN 419 241-2 context)",
-            href: "https://commoncriteriaportal.org/nfs/ccpfiles/files/ppfiles/anssi-cc-pp-2018_02fr.pdf",
-            publisher: "Common Criteria Portal / ANSSI",
-            date: "2018-07",
+              "ETSI TS 119 102-2 V1.4.1: Electronic Signatures and Infrastructures (ESI); Procedures for Creation and Validation of AdES Digital Signatures; Part 2: Signature validation report",
+            href: "https://www.etsi.org/deliver/etsi_ts/119100_119199/11910202/01.04.01_60/ts_11910202v010401p.pdf",
+            publisher: "ETSI",
+            date: "2023-06",
           },
           LQSCDREPORT: {
             title:
@@ -185,19 +192,24 @@
         This document does not solve those risks. It shows where they remain and
         what evidence is missing when disputes happen.
       </p>
+      <p>
+        The focus is whether [=Sole control=] and signer [=Intent=] are
+        [=Verifier-checkable=] rather than only [=Assurance-only=].
+      </p>
     </section>
 
     <section id="scope-and-method">
       <h2>Scope and Method</h2>
+      <p><strong>Scope:</strong></p>
       <p>
-        Scope: qualified remote signatures where signing is triggered through a
-        service run by a trust service provider under eIDAS [[EIDAS910]]
-        [[EIDAS2024_1183]].
+        qualified remote signatures where signing is triggered through a service
+        run by a [=TSP=] (typically a [=QTSP=] in this context) under [=eIDAS=]
+        [[EIDAS910]] [[EIDAS2024_1183]].
       </p>
       <p><strong>Threat qualification rule:</strong></p>
       <p>
         A scenario is included only when it can still happen even if current
-        ETSI controls are in place.
+        [=ETSI=] controls are in place.
       </p>
       <p><strong>Attacker classes in scope:</strong></p>
       <ul>
@@ -226,94 +238,171 @@
     <section id="terminology">
       <h2>Terminology and Abbreviations</h2>
       <dl>
-        <dt>eIDAS</dt>
+        <dt>
+          <dfn id="dfn-eidas"
+            ><abbr
+              title="electronic Identification, Authentication and trust Services"
+              >eIDAS</abbr></dfn>
+        </dt>
         <dd>
-          EU regulation for electronic identification and trust services
+          [=EU=] regulation for electronic identification and trust services
           (Regulation (EU) No 910/2014 and amendments) [[EIDAS910]]
           [[EIDAS2024_1183]].
         </dd>
 
-        <dt>TSP / QTSP</dt>
+        <dt><dfn id="dfn-eu"><abbr title="European Union">EU</abbr></dfn></dt>
+        <dd>The jurisdictional legal framework referenced in this report.</dd>
+
+        <dt>
+          <dfn id="dfn-tsp"><abbr title="Trust Service Provider">TSP</abbr></dfn>
+        </dt>
         <dd>
-          Trust Service Provider. A QTSP is a qualified trust service provider
-          under eIDAS.
+          Organization that provides one or more trust services in scope.
         </dd>
 
-        <dt>QSCD</dt>
+        <dt>
+          <dfn id="dfn-qtsp"
+            ><abbr title="Qualified Trust Service Provider">QTSP</abbr></dfn>
+        </dt>
+        <dd>A [=TSP=] with qualified status under [=eIDAS=].</dd>
+
+        <dt>
+          <dfn id="dfn-qscd"
+            ><abbr title="Qualified Signature Creation Device">QSCD</abbr></dfn>
+        </dt>
         <dd>
-          Qualified Signature Creation Device. The protected signing device or
-          service boundary used to create qualified signatures under eIDAS
-          [[EIDAS910]].
+          Protected signing device or service boundary used to create qualified
+          signatures under [=eIDAS=] [[EIDAS910]].
         </dd>
 
-        <dt>ETSI / CEN</dt>
+        <dt>
+          <dfn id="dfn-etsi"
+            ><abbr title="European Telecommunications Standards Institute"
+              >ETSI</abbr></dfn>
+        </dt>
         <dd>
-          European standards bodies. ETSI publishes the remote-signing technical
-          standards referenced here; CEN standards define related server-signing
+          Standards body publishing remote-signing technical standards used in
+          this report.
+        </dd>
+
+        <dt>
+          <dfn id="dfn-cen"
+            ><abbr title="European Committee for Standardization">CEN</abbr></dfn>
+        </dt>
+        <dd>
+          Standards body whose [=EN=] 419 241 series defines server-signing
           concepts.
         </dd>
 
-        <dt>DTBS</dt>
+        <dt>
+          <dfn id="dfn-ts"><abbr title="Technical Specification">TS</abbr></dfn>
+        </dt>
+        <dd>[=ETSI=] publication type used for technical requirements.</dd>
+
+        <dt>
+          <dfn id="dfn-en"><abbr title="European Standard">EN</abbr></dfn>
+        </dt>
+        <dd>European standard publication designation.</dd>
+
+        <dt>
+          <dfn id="dfn-esi"
+            ><abbr title="Electronic Signatures and Infrastructures"
+              >ESI</abbr></dfn>
+        </dt>
+        <dd>[=ETSI=] working domain label for signature and trust standards.</dd>
+
+        <dt>
+          <dfn id="dfn-ades"
+            ><abbr title="Advanced Electronic Signatures">AdES</abbr></dfn>
+        </dt>
+        <dd>Advanced electronic signature model referenced by [=ETSI=] profiles.</dd>
+
+        <dt>
+          <dfn id="dfn-scdev"
+            ><abbr title="Signature Creation Device">SCDev</abbr></dfn>
+        </dt>
         <dd>
-          Data To Be Signed. In plain terms: the exact content that should be
-          signed.
+          Signature creation device component term used in remote [=QSCD=]
+          architecture context.
         </dd>
 
-        <dt>DTBSR</dt>
+        <dt>
+          <dfn id="dfn-api"
+            ><abbr title="Application Programming Interface">API</abbr></dfn>
+        </dt>
+        <dd>Protocol interface exposed for remote-signing operations.</dd>
+
+        <dt>
+          <dfn id="dfn-dtbs"><abbr title="Data To Be Signed">DTBS</abbr></dfn>
+        </dt>
+        <dd>The exact content that should be signed.</dd>
+
+        <dt>
+          <dfn id="dfn-dtbsr"
+            ><abbr title="Data To Be Signed Representation">DTBSR</abbr></dfn>
+        </dt>
         <dd>
-          Data To Be Signed Representation. In plain terms: the representation
-          of what is to be signed that remote-signing components process
+          Representation of [=DTBS=] that remote-signing components process
           [[ETSI119432]] [[ETSI119431_1]].
         </dd>
 
-        <dt>SAD</dt>
+        <dt>
+          <dfn id="dfn-sad"
+            ><abbr title="Signature Activation Data">SAD</abbr></dfn>
+        </dt>
         <dd>
-          Signature Activation Data. The activation material used to authorize a
-          remote signing operation [[ETSI119431_1]].
+          Activation material used to authorize a remote signing operation
+          [[ETSI119431_1]].
         </dd>
 
-        <dt>SAM / SAP</dt>
+        <dt>
+          <dfn id="dfn-ocsp"
+            ><abbr title="Online Certificate Status Protocol">OCSP</abbr></dfn>
+        </dt>
+        <dd>Certificate status source used in validation.</dd>
+
+        <dt>
+          <dfn id="dfn-crl"
+            ><abbr title="Certificate Revocation List">CRL</abbr></dfn>
+        </dt>
+        <dd>Revocation status source used in validation.</dd>
+
+        <dt>
+          <dfn id="dfn-tl"><abbr title="Trusted List">TL</abbr></dfn>
+        </dt>
+        <dd>National trusted list used for trusted service status discovery.</dd>
+
+        <dt>
+          <dfn id="dfn-lotl"
+            ><abbr title="List of Trusted Lists">LOTL</abbr></dfn>
+        </dt>
         <dd>
-          In server-signing architecture, SAM is the server-side gate that
-          decides whether a signing activation is allowed. SAP is the activation
-          path (rules/messages) that carries that authorization context
-          [[CENETSI2024]] [[EN4192412PP]].
+          List that provides discovery pointers to [=TL=] entries
+          [[TL2015_1505]].
         </dd>
 
-        <dt>OCSP / CRL</dt>
+        <dt><dfn id="dfn-sole-control">Sole control</dfn></dt>
         <dd>
-          Certificate status sources used in validation: Online Certificate
-          Status Protocol (OCSP) and Certificate Revocation List (CRL).
+          Requirement that only the signer can validly trigger signature
+          creation for the event under the stated assumptions [[EIDAS910]].
         </dd>
 
-        <dt>TL / LOTL</dt>
-        <dd>
-          Trusted List (TL) and List of Trusted Lists (LOTL) used to discover
-          trusted service status in the EU framework [[TL2015_1505]].
-        </dd>
-
-        <dt>Sole control</dt>
-        <dd>
-          The requirement that only the signer can validly trigger signature
-          creation for that event, under the stated assumptions [[EIDAS910]].
-        </dd>
-
-        <dt>Intent</dt>
+        <dt><dfn id="dfn-intent">Intent</dfn></dt>
         <dd>
           Evidence that the signer approved the same content that was actually
           signed.
         </dd>
 
-        <dt>Verifier-checkable</dt>
+        <dt><dfn id="dfn-verifier-checkable">Verifier-checkable</dfn></dt>
         <dd>
           Evidence a third party can independently replay and verify without
           relying only on provider narrative.
         </dd>
 
-        <dt>Assurance-only</dt>
+        <dt><dfn id="dfn-assurance-only">Assurance-only</dfn></dt>
         <dd>
-          A control mainly supported by audits, policy, or process evidence
-          rather than standalone replayable artifacts.
+          Control mainly supported by audits, policy, or process evidence rather
+          than standalone replayable artifacts.
         </dd>
       </dl>
     </section>
@@ -321,31 +410,55 @@
     <section id="legal-and-standards-baseline">
       <h2>Legal and Standards Baseline</h2>
       <p>
-        eIDAS Article 25 says an electronic signature cannot be denied legal
+        [=eIDAS=] Article 25 says an electronic signature cannot be denied legal
         effect only because it is electronic [[EIDAS910]].
       </p>
       <p>
-        eIDAS Article 26(c) and Annex II require signature-creation data to be
-        controlled and protected so others cannot validly trigger signing events
-        [[EIDAS910]].
+        [=eIDAS=] Article 26(c) and Annex II require signature-creation data to
+        be controlled and protected so others cannot validly trigger signing
+        events [[EIDAS910]].
       </p>
       <p>
-        Regulation (EU) 2024/1183 updates eIDAS and sets the legal framework for
-        remote qualified-signature components and related transition rules
+        Regulation (EU) 2024/1183 updates [=eIDAS=] and sets the legal framework
+        for remote qualified-signature components and related transition rules
         [[EIDAS910]] [[EIDAS2024_1183]].
       </p>
       <p>
-        Implementing Regulation (EU) 2025/1567 points to ETSI standards as the
-        technical baseline used in this report [[EIDAS2025_1567]]
+        Implementing Regulation (EU) 2025/1567 points to [=ETSI=] standards as
+        the technical baseline used in this report [[EIDAS2025_1567]]
         [[ETSI119431_1]] [[ETSI319401]].
       </p>
       <p>
-        When EU law pins a specific standard version, that pinned version is
+        That Implementing Regulation enters into force in 2025 but applies from
+        19 August 2027 [[EIDAS2025_1567]].
+      </p>
+      <p>
+        When [=EU=] law pins a specific standard version, that pinned version is
         the legal reference for conformance checks [[EIDAS2025_1567]].
       </p>
       <p>
-        ETSI TS 119 432 defines the remote-signing API model, but it does not
-        itself define the full client authentication method [[ETSI119432]].
+        In Annex terms, Implementing Regulation (EU) 2025/1567 references
+        ETSI EN 319 401 V3.1.1 for that legal conformance context
+        [[EIDAS2025_1567]].
+      </p>
+      <p>
+        Trusted-list technical specifications are defined by Implementing Decision
+        (EU) 2015/1505, as amended by Implementing Decision (EU) 2025/2164
+        [[TL2015_1505]] [[EIDAS2025_2164]].
+      </p>
+      <p>
+        [=ETSI=] [=TS=] 119 432 defines the remote-signing [=API=] model, but it
+        does not itself define the full client authentication method
+        [[ETSI119432]].
+      </p>
+      <p>
+        In the [=ETSI=] [=ESI=] series, [=TS=] 119 431-2 addresses components
+        supporting [=AdES=] creation [[ETSI119431_2]].
+      </p>
+      <p>
+        [=ETSI=] [=EN=] 319 102-1 and [=TS=] 119 102-2 define signature
+        validation procedures and validation-report structures used for evidence
+        capture and replay [[ETSI319102_1]] [[ETSI119102_2]].
       </p>
       <p>
         These controls reduce risk, but they do not automatically make every
@@ -358,9 +471,9 @@
       <p><strong>Assets:</strong></p>
       <ul>
         <li>Signature key activation state.</li>
-        <li>SAD and activation decisions.</li>
-        <li>DTBS/DTBSR linkage from display to signature input.</li>
-        <li>Validation-time trust material (OCSP/CRL/TL/LOTL).</li>
+        <li>[=SAD=] and activation decisions.</li>
+        <li>[=DTBS=]/[=DTBSR=] linkage from display to signature input.</li>
+        <li>Validation-time trust material ([=OCSP=]/[=CRL=]/[=TL=]/[=LOTL=]).</li>
         <li>Audit and event logs.</li>
       </ul>
       <p><strong>Main boundary split:</strong></p>
@@ -372,19 +485,24 @@
         </li>
         <li>
           What often stays inside the provider: user-intent path details,
-          activation internals, and internal log semantics [[ETSI119431_1]]
-          [[ETSI319401]] [[ETSI119431_2]].
+          activation internals and internal authorization decisions in
+          [=CEN=]/ETSI server-signing models, and
+          internal log semantics [[ETSI119431_1]] [[ETSI319401]]
+          [[ETSI119431_2]].
+        </li>
+        <li>
+          The remote [=QSCD=]/[=SCDev=] split is an explicit boundary where
+          verifier-visible artifacts are often limited.
         </li>
       </ul>
-      <p>
-        This split is the main reason residual dispute risk remains.
-      </p>
+      <p>This split is the main reason residual dispute risk remains.</p>
     </section>
+
     <section id="residual-scenarios-and-mapping">
       <h2>Residual Scenarios and Evidence Gaps</h2>
       <p>
         This report keeps four residual scenarios that can still exist under the
-        current ETSI baseline.
+        current [=ETSI=] baseline.
       </p>
       <p>
         Format per scenario: <strong>THREAT</strong>,
@@ -394,48 +512,62 @@
 
       <h3>R1: Show A, Sign B</h3>
       <p>
-        <strong>THREAT:</strong> A compromised frontend keeps valid
-        authentication/session and submits content B after showing content A.
+        <strong>THREAT:</strong> A compromised signer-side frontend keeps a valid
+        authenticated session and, after displaying content A, sends a different
+        [=DTBSR=] (content B) in the signing request.
       </p>
       <p>
-        <strong>MITIGATION:</strong> Session and activation controls plus
-        remote-signing API model [[ETSI119431_1]] [[ETSI119432]].
+        <strong>MITIGATION:</strong> [=ETSI=] requires controlled signature
+        activation, [=SAD=] protection/binding controls, service-side access and
+        security controls, and a remote-signing [=API=] message model for
+        payload handling [[ETSI319401]] [[ETSI119431_1]] [[ETSI119432]].
       </p>
       <p>
-        <strong>RESIDUAL:</strong> Independent proof that signer saw and
-        approved the same document and terms that were finally signed.
+        <strong>RESIDUAL:</strong> Unless verifier-visible evidence includes a
+        trusted-path binding between signer view and submitted [=DTBSR=], third
+        parties may still lack independent proof that the signer approved the
+        same content that was finally signed.
       </p>
 
       <h3>R2: Privileged Internal Misuse</h3>
       <p>
-        <strong>THREAT:</strong> Someone with high internal access abuses that
-        access and gets a valid signature created, even though no key is
-        exported.
+        <strong>THREAT:</strong> A privileged insider (or misuse of privileged
+        credentials) manipulates authorization state, service policy, or signing
+        requests and causes a valid signature to be created, even when signing
+        keys remain within the [=QSCD=] boundary and are not exported
+        [[EIDAS910]].
       </p>
       <p>
-        <strong>MITIGATION:</strong> ETSI requires access control, role
-        separation, monitoring, and audit controls for service components
-        [[ETSI319401]] [[ETSI119431_2]].
+        <strong>MITIGATION:</strong> [=ETSI=] requires role separation,
+        privileged-access control, monitoring, and audit/retention controls for
+        trust-service operation and remote-signing service components
+        [[ETSI319401]] [[ETSI119431_1]] [[ETSI119431_2]].
       </p>
       <p>
-        <strong>RESIDUAL:</strong> In a dispute, an external reviewer may still
-        lack event-level proof that this exact activation was free from
-        privileged misuse.
+        <strong>RESIDUAL:</strong> In a dispute, external reviewers may still
+        lack an independently replayable event-level record proving that this
+        exact activation path was free from privileged misuse.
       </p>
 
       <h3>R3: Missing Validation Snapshot</h3>
       <p>
-        <strong>THREAT:</strong> At decision time, the service does not keep a
-        complete record of the trust data it used (for example certificate
-        status and trusted-list state).
+        <strong>THREAT:</strong> For one validation decision, the baseline can
+        yield a valid status result while associated validation-report evidence
+        elements remain optional in the report model; therefore a complete
+        decision-time evidence snapshot is not guaranteed to exist for every case
+        [[ETSI119102_2]] [[ETSI319102_1]].
       </p>
       <p>
-        <strong>MITIGATION:</strong> Validation and trusted-list framework
-        [[EIDAS910]] [[TL2015_1505]].
+        <strong>MITIGATION:</strong> [=eIDAS=] and trusted-list acts define
+        legal validation conditions and trust-list context, and [=ETSI=]
+        EN 319 102-1 / TS 119 102-2 define validation and report structures that
+        can include validation data used [[EIDAS910]] [[TL2015_1505]]
+        [[EIDAS2025_2164]] [[ETSI319102_1]] [[ETSI119102_2]].
       </p>
       <p>
-        <strong>RESIDUAL:</strong> Later replay may not match the original
-        decision because the exact validation inputs are not fully reproducible.
+        <strong>RESIDUAL:</strong> If decision-time validation inputs are not
+        immutably retained and disclosed, whether by design gaps or privileged
+        tampering, external replay cannot reconstruct the original decision path.
       </p>
 
       <h3>R4: Evidence Stays Inside the Provider</h3>
@@ -445,27 +577,28 @@
       </p>
       <p>
         <strong>MITIGATION:</strong> Logging and governance obligations
-        [[ETSI319401]] [[ETSI119431_2]].
+        [[ETSI319401]] [[ETSI119431_1]] [[ETSI119431_2]].
       </p>
       <p>
         <strong>RESIDUAL:</strong> External parties may still be unable to
-        verify the full intent-related event history without relying on provider
+        verify the full activation/evidence event history without relying on provider
         narrative.
       </p>
     </section>
 
-    <section id="alternative">
+      <section id="alternative">
       <h2>Alternative</h2>
       <p>
-        Alternative direction: a signer-controlled phone-based QSCD model where
-        the person's PID identity is issued to that device.
+        Alternative direction: define recognition criteria under which consumer
+        devices with specified secure components can serve as
+        [=QSCD=]-class signature creation environments for decentralized legal
+        trust workflows.
       </p>
       <p>
-        Reference report:
+        Companion report:
         <a href="https://z-base.github.io/lqscd-report/"
           >https://z-base.github.io/lqscd-report/</a
         >
-        [[LQSCDREPORT]].
       </p>
     </section>
   </body>
